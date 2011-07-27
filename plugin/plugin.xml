@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.codenarc.eclipse.contribution.file"
+            nameFilter="*.groovy"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.codenarc.eclipse.popup.actions.ClearViolationsAction"
+               enablesFor="+"
+               icon="platform:/plugin/org.eclipse.ui/icons/full/etool16/delete_edit.gif"
+               id="org.codenarc.eclipse.file.ClearViolationsAction"
+               label="Clear CodeNarc violations"
+               menubarPath="groovyfile/codenarc">
+         </action>
+         <action
+               class="org.codenarc.eclipse.popup.actions.CheckCodeAction"
+               enablesFor="+"
+               icon="icons/codenarc_16x16.png"
+               id="org.codenarc.eclipse.file.CheckCodeAction"
+               label="Check code with CodeNarc"
+               menubarPath="groovyfile/codenarc">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.codenarc.eclipse.contribution.project"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               class="org.codenarc.eclipse.popup.actions.ClearViolationsAction"
+               enablesFor="1"
+               icon="platform:/plugin/org.eclipse.ui/icons/full/etool16/delete_edit.gif"
+               id="org.codenarc.eclipse.project.ClearViolationsAction"
+               label="Clear CodeNarc violations"
+               menubarPath="groovy/codenarc">
+         </action>
+         <action
+               class="org.codenarc.eclipse.popup.actions.CheckCodeAction"
+               enablesFor="1"
+               icon="icons/codenarc_16x16.png"
+               id="org.codenarc.eclipse.project.CheckCodeAction"
+               label="Check code with CodeNarc"
+               menubarPath="groovy/codenarc">
+         </action>
+         <visibility>
+            <objectState
+                  name="nature"
+                  value="org.eclipse.jdt.groovy.core.groovyNature">
+            </objectState>
+         </visibility>
+      </objectContribution>
+   </extension>
+   <extension
+         id="org.codenarc.eclipse.marker.violation"
+         name="CodeNarc Violation"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.textmarker">
+      </super>
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+   </extension>
+   <extension
+         id="org.codenarc.eclipse.marker.violation.priority1"
+         name="CodeNarc Violation (Priority 1)"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.codenarc.eclipse.marker.violation">
+      </super>
+   </extension>
+   <extension
+         id="org.codenarc.eclipse.marker.violation.priority2"
+         name="CodeNarc Violation (Priority 2)"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.codenarc.eclipse.marker.violation">
+      </super>
+   </extension>
+   <extension
+         id="org.codenarc.eclipse.marker.violation.priority3"
+         name="CodeNarc Violation (Priority 3)"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.codenarc.eclipse.marker.violation">
+      </super>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors.annotationTypes">
+      <type
+            markerType="org.codenarc.eclipse.marker.violation.priority1"
+            name="org.codenarc.eclipse.annotation.marker.priority1"
+            super="org.eclipse.ui.workbench.texteditor.warning">
+      </type>
+      <type
+            markerType="org.codenarc.eclipse.marker.violation.priority2"
+            name="org.codenarc.eclipse.annotation.marker.priority2"
+            super="org.eclipse.ui.workbench.texteditor.warning">
+      </type>
+      <type
+            markerType="org.codenarc.eclipse.marker.violation.priority3"
+            name="org.codenarc.eclipse.annotation.marker.priority3"
+            super="org.eclipse.ui.workbench.texteditor.warning">
+      </type>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors.markerAnnotationSpecification">
+      <specification
+            annotationType="org.codenarc.eclipse.annotation.marker.priority1"
+            colorPreferenceKey="org.codenarc.eclipse.annotation1.color"
+            colorPreferenceValue="255,170,170"
+            highlightPreferenceKey="org.codenarc.eclipse.annotation1.highlight"
+            highlightPreferenceValue="true"
+            icon="icons/codenarc_16x16.png"
+            label="Priority 1"
+            overviewRulerPreferenceKey="org.codenarc.eclipse.annotation1.overviewRuler"
+            overviewRulerPreferenceValue="true"
+            textPreferenceKey="org.codenarc.eclipse.annotation1.text"
+            textPreferenceValue="false"
+            textStylePreferenceKey="org.codenarc.eclipse.annotation1.textStyle"
+            textStylePreferenceValue="BOX"
+            verticalRulerPreferenceKey="org.codenarc.eclipse.annotation1.verticalRuler"
+            verticalRulerPreferenceValue="true">
+      </specification>
+      <specification
+            annotationType="org.codenarc.eclipse.annotation.marker.priority2"
+            colorPreferenceKey="org.codenarc.eclipse.annotation2.color"
+            colorPreferenceValue="255,204,170"
+            highlightPreferenceKey="org.codenarc.eclipse.annotation2.highlight"
+            highlightPreferenceValue="true"
+            icon="icons/codenarc_16x16.png"
+            label="Priority 2"
+            overviewRulerPreferenceKey="org.codenarc.eclipse.annotation2.overviewRuler"
+            overviewRulerPreferenceValue="true"
+            textPreferenceKey="org.codenarc.eclipse.annotation2.text"
+            textPreferenceValue="false"
+            textStylePreferenceKey="org.codenarc.eclipse.annotation2.textStyle"
+            textStylePreferenceValue="BOX"
+            verticalRulerPreferenceKey="org.codenarc.eclipse.annotation2.verticalRuler"
+            verticalRulerPreferenceValue="true">
+      </specification>
+      <specification
+            annotationType="org.codenarc.eclipse.annotation.marker.priority3"
+            colorPreferenceKey="org.codenarc.eclipse.annotation3.color"
+            colorPreferenceValue="255,238,170"
+            highlightPreferenceKey="org.codenarc.eclipse.annotation3.highlight"
+            highlightPreferenceValue="true"
+            icon="icons/codenarc_16x16.png"
+            label="Priority 3"
+            overviewRulerPreferenceKey="org.codenarc.eclipse.annotation3.overviewRuler"
+            overviewRulerPreferenceValue="true"
+            textPreferenceKey="org.codenarc.eclipse.annotation3.text"
+            textPreferenceValue="false"
+            textStylePreferenceKey="org.codenarc.eclipse.annotation3.textStyle"
+            textStylePreferenceValue="BOX"
+            verticalRulerPreferenceKey="org.codenarc.eclipse.annotation3.verticalRuler"
+            verticalRulerPreferenceValue="true">
+      </specification>
+   </extension>
+
+</plugin>
