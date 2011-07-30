@@ -5,9 +5,9 @@ package org.codenarc.eclipse
  */
 class CodeNarcMarker {
 
-	static final String SUPER_TYPE = 'org.codenarc.eclipse.marker.violation'
+    static final String SUPER_TYPE = 'org.codenarc.eclipse.marker.violation'
 
-	static String getMarkerTypeForPriority(priority) {
-		SUPER_TYPE + '.priority' + priority
-	}
+    static String getMarkerTypeForPriority(priority) {
+        SUPER_TYPE + '.priority' + priority
+    }
 }

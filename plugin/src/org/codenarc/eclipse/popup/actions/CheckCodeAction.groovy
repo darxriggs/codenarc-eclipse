@@ -9,21 +9,21 @@ import org.eclipse.ui.IWorkbenchPart
 
 class CheckCodeAction implements IObjectActionDelegate {
 
-	private IStructuredSelection selection
+    private IStructuredSelection selection
 
-	@Override
-	void run(IAction action) {
+    @Override
+    void run(IAction action) {
         CheckCodeJob job = new CheckCodeJob(selection)
         job.setPriority(Job.INTERACTIVE)
         job.schedule()
-	}
+    }
 
-	@Override
-	void selectionChanged(IAction action, ISelection selection) {
-		if (selection instanceof IStructuredSelection)  {
-			this.selection = selection
-		}
-	}
+    @Override
+    void selectionChanged(IAction action, ISelection selection) {
+        if (selection instanceof IStructuredSelection)  {
+            this.selection = selection
+        }
+    }
 
     @Override
     void setActivePart(IAction action, IWorkbenchPart targetPart) {}

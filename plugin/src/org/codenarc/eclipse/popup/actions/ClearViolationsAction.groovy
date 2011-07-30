@@ -15,28 +15,28 @@ import org.eclipse.ui.IWorkbenchPart
 
 class ClearViolationsAction implements IObjectActionDelegate {
 
-	private IStructuredSelection selection
+    private IStructuredSelection selection
 
-	@Override
-	void run(IAction action) {
-		def files = SelectionUtils.getGroovyFiles(selection)
+    @Override
+    void run(IAction action) {
+        def files = SelectionUtils.getGroovyFiles(selection)
 
-		for (file in files) {
-			try {
-				file.deleteMarkers(CodeNarcMarker.SUPER_TYPE, true, IResource.DEPTH_INFINITE)
-			} catch (CoreException e) {
-				def status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, 'Could not delete marker', e)
-				Activator.getDefault().getLog().log(status)
-			}
-		}
-	}
+        for (file in files) {
+            try {
+                file.deleteMarkers(CodeNarcMarker.SUPER_TYPE, true, IResource.DEPTH_INFINITE)
+            } catch (CoreException e) {
+                def status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, 'Could not delete marker', e)
+                Activator.getDefault().getLog().log(status)
+            }
+        }
+    }
 
-	@Override
-	void selectionChanged(IAction action, ISelection selection) {
-		if (selection instanceof IStructuredSelection)  {
-			this.selection = selection
-		}
-	}
+    @Override
+    void selectionChanged(IAction action, ISelection selection) {
+        if (selection instanceof IStructuredSelection)  {
+            this.selection = selection
+        }
+    }
 
     @Override
     void setActivePart(IAction action, IWorkbenchPart targetPart) {}
