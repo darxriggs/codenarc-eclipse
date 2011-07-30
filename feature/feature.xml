@@ -6,7 +6,7 @@
       plugin="org.codenarc.eclipse.plugin">
 
    <description url="http://codenarceclipse.sourceforge.net/">
-This provides CodeNarc functionality inside Eclipse.
+This provides CodeNarc integration for Eclipse.
 
 CodeNarc is a static analysis tool for Groovy source code, enabling monitoring and enforcement of many coding standards and best practices. CodeNarc applies predefined and/or custom rules to each Groovy file, and generates an HTML or XML report.
    </description>

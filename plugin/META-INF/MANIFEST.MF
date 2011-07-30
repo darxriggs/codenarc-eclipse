@@ -20,3 +20,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,
  lib/CodeNarc-0.14.jar,
  lib/GMetrics-0.3.jar
+Bundle-Vendor: http://codenarceclipse.sourceforge.net/
