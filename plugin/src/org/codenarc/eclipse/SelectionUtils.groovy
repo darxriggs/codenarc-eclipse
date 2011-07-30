@@ -1,29 +1,38 @@
 package org.codenarc.eclipse
 
+import java.util.Iterator
+import java.util.List
+
+import org.eclipse.core.resources.IContainer
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IResource
-import org.eclipse.core.runtime.IAdaptable
 import org.eclipse.jface.viewers.IStructuredSelection
 
 class SelectionUtils {
 
-	// TODO: support selecting a project, different folders and files
-	// see FindBugsAction.java from Eclipse-FindBugs
-	static List<IFile> getGroovyFiles(IStructuredSelection selection) {
-		def files = []
+    static List<IFile> getGroovyFiles(IStructuredSelection selection) {
+        def files = []
+        addFileResources(selection.toList(), files)
+        return files
+    }
 
-		if (selection) {
-			for (object in selection.toList()) {
-				if (object instanceof IAdaptable) {
-					IFile file = ((IAdaptable) object).getAdapter(IFile)
+    static private void addFileResources(List resources, List files) {
+        Iterator iterator = resources.iterator()
+        while (iterator.hasNext()) {
+            IResource resource = iterator.next()
 
-					if (file && file.type == IResource.FILE && file.fileExtension == 'groovy') {
-						files.add(file)
-					}
-				}
-			}
-		}
+            if (!resource.isAccessible()) {
+                continue
+            }
 
-		files
-	}
+            if (resource instanceof IFile) {
+                IFile file = resource
+                if (file.type == IResource.FILE && file.fileExtension == 'groovy') {
+                    files.add(file)
+                }
+            } else if (resource instanceof IContainer) {
+                addFileResources(resource.members() as List, files)
+            }
+        }
+    }
 }
