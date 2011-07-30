@@ -39,7 +39,7 @@ class CheckCodeJob extends Job {
         def ruleSet = createRuleSet()
         checkFiles(files, ruleSet)
 
-        Status.OK_STATUS
+        monitor.isCanceled() ? Status.CANCEL_STATUS : Status.OK_STATUS
     }
 
     private List<IFile> selectFiles() {
@@ -61,6 +61,8 @@ class CheckCodeJob extends Job {
     private void checkFiles(List files, RuleSet ruleSet) {
         monitor.beginTask('Checking files', files.size())
         for (file in files) {
+            if (monitor.isCanceled()) return
+
             monitor.subTask(file.name)
             checkFile(file, ruleSet)
             monitor.worked(1)
