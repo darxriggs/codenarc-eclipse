@@ -1,12 +1,7 @@
 package org.codenarc.eclipse.popup.actions
 
-import org.codenarc.eclipse.Activator
-import org.codenarc.eclipse.CodeNarcMarker
-import org.codenarc.eclipse.SelectionUtils
-import org.eclipse.core.resources.IResource
-import org.eclipse.core.runtime.CoreException
-import org.eclipse.core.runtime.IStatus
-import org.eclipse.core.runtime.Status
+import org.codenarc.eclipse.jobs.ClearViolationsJob
+import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.action.IAction
 import org.eclipse.jface.viewers.ISelection
 import org.eclipse.jface.viewers.IStructuredSelection
@@ -19,16 +14,9 @@ class ClearViolationsAction implements IObjectActionDelegate {
 
     @Override
     void run(IAction action) {
-        def files = SelectionUtils.getGroovyFiles(selection)
-
-        for (file in files) {
-            try {
-                file.deleteMarkers(CodeNarcMarker.SUPER_TYPE, true, IResource.DEPTH_INFINITE)
-            } catch (CoreException e) {
-                def status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, 'Could not delete marker', e)
-                Activator.getDefault().getLog().log(status)
-            }
-        }
+        def job = new ClearViolationsJob(selection)
+        job.priority = Job.INTERACTIVE
+        job.schedule()
     }
 
     @Override

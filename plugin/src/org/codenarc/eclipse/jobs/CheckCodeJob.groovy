@@ -1,4 +1,4 @@
-package org.codenarc.eclipse.popup.actions
+package org.codenarc.eclipse.jobs
 
 import org.codehaus.jdt.groovy.model.GroovyCompilationUnit
 import org.codenarc.analyzer.StringSourceAnalyzer
@@ -58,7 +58,7 @@ class CheckCodeJob extends Job {
         ruleSet
     }
 
-    private void checkFiles(List files, RuleSet ruleSet) {
+    private void checkFiles(List<IFile> files, RuleSet ruleSet) {
         monitor.beginTask('Checking files', files.size())
         for (file in files) {
             if (monitor.isCanceled()) return

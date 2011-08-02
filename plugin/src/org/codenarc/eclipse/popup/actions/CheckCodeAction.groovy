@@ -1,5 +1,6 @@
 package org.codenarc.eclipse.popup.actions
 
+import org.codenarc.eclipse.jobs.CheckCodeJob
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.action.IAction
 import org.eclipse.jface.viewers.ISelection
@@ -13,8 +14,8 @@ class CheckCodeAction implements IObjectActionDelegate {
 
     @Override
     void run(IAction action) {
-        CheckCodeJob job = new CheckCodeJob(selection)
-        job.setPriority(Job.INTERACTIVE)
+        def job = new CheckCodeJob(selection)
+        job.priority = Job.INTERACTIVE
         job.schedule()
     }
 
