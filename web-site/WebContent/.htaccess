@@ -1,5 +1,15 @@
+# Make Eclipse plug-in update site working @ SourceForge
+# based on http://elmuerte.blogspot.com/2009/08/eclipse-update-site-on-sourceforge.html
+
 RewriteEngine On
+
 # Redirect the root requests to the master site
-RewriteRule ^([^/]*)$ http://master.dl.sourceforge.net/project/codenarceclipse/files/eclipse/$1 [L]
+RewriteRule ^eclipse/release/([^/]*)$  http://master.dl.sourceforge.net/project/codenarceclipse/eclipse/release/$1 [L]
+RewriteRule ^eclipse/snapshot/([^/]*)$ http://master.dl.sourceforge.net/project/codenarceclipse/eclipse/snapshot/$1 [L]
+
 # The rest goes to the auto-mirror location
-RewriteRule (.*) http://downloads.sourceforge.net/project/codenarceclipse/files/eclipse/$1 [L]
+RewriteRule ^eclipse/release$     http://downloads.sourceforge.net/project/codenarceclipse/eclipse/release/ [L]
+RewriteRule ^eclipse/release/(.*) http://downloads.sourceforge.net/project/codenarceclipse/eclipse/release/$1 [L]
+RewriteRule ^eclipse/snapshot$     http://downloads.sourceforge.net/project/codenarceclipse/eclipse/snapshot/ [L]
+RewriteRule ^eclipse/snapshot/(.*) http://downloads.sourceforge.net/project/codenarceclipse/eclipse/snapshot/$1 [L]
+
