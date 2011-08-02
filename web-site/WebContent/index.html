@@ -76,8 +76,9 @@
 
             <div id="contentBox">
                 <h3>Features</h3>
+                <p>Currently all rulesets that ship with CodeNarc are used to check for violations.</p>
 
-                <p>Currently you can mark .groovy files or a Groovy project and check the code with CodeNarc.</p>
+                <p>You can mark .groovy files or a Groovy project and check the code with CodeNarc.</p>
                 <a id="check_code" title="Check code with CodeNarc" rel="screenshots" href="images/CodeNarc-Eclipse-CheckCode.png">
                     <img src="images/CodeNarc-Eclipse-CheckCode.png" alt="Check code with CodeNarc" width="200" />
                 </a>
@@ -86,6 +87,12 @@
                 <a id="violation_markers" title="Violation Markers" rel="screenshots" href="images/CodeNarc-Eclipse-ViolationMarkers.png">
                     <img src="images/CodeNarc-Eclipse-ViolationMarkers.png" alt="Violation Markers" width="200" />
                 </a>
+
+                <p>
+                    <b>NOTE:</b> Due to a bug in Groovy CodeNarc does not work with Groovy 1.8.
+                    Therefore make sure to use Groovy 1.7 in your Eclipse installation when working with CodeNarc.
+                    The next CodeNarc release contains a workaround for this, so it can also be used with Groovy 1.8.
+                </p>
             </div>
 
             <div id="contentBox">
