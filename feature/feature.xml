@@ -213,10 +213,10 @@ END OF TERMS AND CONDITIONS]]>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.jface.text"/>
       <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.jdt.groovy.core" version="2.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.groovy.core" version="2.1.0" match="greaterOrEqual"/>
       <import plugin="org.codehaus.groovy" version="1.7.0"/>
-      <import plugin="org.codehaus.groovy.eclipse" version="2.5.0" match="greaterOrEqual"/>
-      <import plugin="org.codehaus.groovy.eclipse.core" version="2.5.0" match="greaterOrEqual"/>
+      <import plugin="org.codehaus.groovy.eclipse" version="2.1.0" match="greaterOrEqual"/>
+      <import plugin="org.codehaus.groovy.eclipse.core" version="2.1.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
