@@ -13,11 +13,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.groovy.core;bundle-version="2.5.0",
  org.codehaus.groovy;bundle-version="[1.7.0,1.7.99]",
  org.codehaus.groovy.eclipse;bundle-version="2.5.0",
- org.codehaus.groovy.eclipse.core;bundle-version="2.5.0",
- org.apache.log4j;bundle-version="1.2.15"
+ org.codehaus.groovy.eclipse.core;bundle-version="2.5.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,
  lib/CodeNarc-0.14.jar,
- lib/GMetrics-0.3.jar
+ lib/GMetrics-0.3.jar,
+ lib/log4j-1.2.16.jar
 Bundle-Vendor: http://codenarceclipse.sourceforge.net/
