@@ -22,7 +22,7 @@ import org.eclipse.jface.viewers.IStructuredSelection
 
 class CheckCodeJob extends Job {
 
-    private static final ILog log = Activator.getDefault().getLog()
+    private static final ILog log = Activator.default.log
 
     private IProgressMonitor monitor
     private IStructuredSelection selection
