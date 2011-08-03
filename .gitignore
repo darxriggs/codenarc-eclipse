@@ -1,1 +1,6 @@
-plugin/bin
+plugin/bin/
+update-site/artifacts.jar
+update-site/content.jar
+update-site/features/
+update-site/plugins/
+
