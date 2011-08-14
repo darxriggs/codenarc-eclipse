@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: CodeNarc
 Bundle-SymbolicName: org.codenarc.eclipse.plugin;singleton:=true
-Bundle-Version: 0.14.0.qualifier
+Bundle-Version: 0.15.0.qualifier
 Bundle-Activator: org.codenarc.eclipse.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.editors,
@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,
- lib/CodeNarc-0.14.jar,
+ lib/CodeNarc-0.15.jar,
  lib/GMetrics-0.3.jar,
  lib/log4j-1.2.16.jar
 Bundle-Vendor: http://codenarceclipse.sourceforge.net/
