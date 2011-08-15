@@ -1,6 +1,10 @@
 plugin/bin/
-update-site/artifacts.jar
-update-site/content.jar
-update-site/features/
-update-site/plugins/
+update-site.release/artifacts.jar
+update-site.release/content.jar
+update-site.release/features/
+update-site.release/plugins/
+update-site.snapshot/artifacts.jar
+update-site.snapshot/content.jar
+update-site.snapshot/features/
+update-site.snapshot/plugins/
 
