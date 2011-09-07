@@ -161,5 +161,20 @@
             verticalRulerPreferenceValue="true">
       </specification>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.codehaus.groovy.eclipse.preferences"
+            class="org.codenarc.eclipse.plugin.preferences.PreferencePage"
+            id="org.codenarc.eclipse.plugin.preferences.PreferencePage"
+            name="CodeNarc">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.codenarc.eclipse.plugin.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
 
 </plugin>

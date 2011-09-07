@@ -6,6 +6,7 @@ import org.codenarc.eclipse.Activator
 import org.codenarc.eclipse.CodeNarcMarker
 import org.codenarc.eclipse.RuleSetProvider
 import org.codenarc.eclipse.SelectionUtils
+import org.codenarc.eclipse.plugin.preferences.PreferenceConstants
 import org.codenarc.results.Results
 import org.codenarc.ruleset.RuleSet
 import org.eclipse.core.resources.IFile
@@ -52,7 +53,19 @@ class CheckCodeJob extends Job {
 
     private RuleSet createRuleSet() {
         monitor.beginTask('Loading rulesets', 10)
-        def ruleSet = RuleSetProvider.createDefaultRuleSet()
+
+        def preferenceStore = Activator.default.preferenceStore
+        def useCustomRuleSet = preferenceStore.getBoolean(PreferenceConstants.USE_CUSTOM_RULESET)
+
+        def ruleSet
+        if (useCustomRuleSet) {
+            def fileListAsString = preferenceStore.getString(PreferenceConstants.RULESET_FILES)
+            def paths = fileListAsString.split(File.pathSeparator).collect{ 'file:' + it }
+            ruleSet = RuleSetProvider.createRuleSetFromFiles(paths)
+        } else {
+            ruleSet = RuleSetProvider.createDefaultRuleSet()
+        }
+
         monitor.worked(10)
 
         ruleSet
