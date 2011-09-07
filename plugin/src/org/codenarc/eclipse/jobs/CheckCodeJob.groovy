@@ -82,7 +82,7 @@ class CheckCodeJob extends Job {
         }
     }
 
-    private Results analyzeSource(file, ruleSet) {
+    private Results analyzeSource(IFile file, RuleSet ruleSet) {
         GroovyCompilationUnit unit = (GroovyCompilationUnit) JavaCore.createCompilationUnitFrom(file)
         String source = new String(unit.contents)
 
@@ -97,7 +97,7 @@ class CheckCodeJob extends Job {
         results
     }
 
-    private void createViolationMarkers(results, file) {
+    private void createViolationMarkers(Results results, IFile file) {
         for (violation in results.violations) {
             def rule = violation.rule
 
