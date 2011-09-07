@@ -34,14 +34,28 @@ class RuleSetProvider {
 
     static RuleSet createDefaultRuleSet() {
         def paths = DEFAULT_RULESETS.collect{ ruleSet -> "rulesets/${ruleSet}.xml" }
+
+        createRuleSetFromFiles(paths)
+    }
+
+    static RuleSet createRuleSetFromFiles(List paths) {
+        def invalidFiles = []
         def overallRuleSet = new CompositeRuleSet()
 
         def begin = System.currentTimeMillis()
         for (path in paths) {
-            def ruleSet = RuleSetUtil.loadRuleSetFile(path)
-            overallRuleSet.addRuleSet(ruleSet)
+            try {
+                def ruleSet = RuleSetUtil.loadRuleSetFile(path)
+                overallRuleSet.addRuleSet(ruleSet)
+            } catch (e) {
+                invalidFiles << path
+            }
         }
         def end = System.currentTimeMillis()
+
+        if (invalidFiles) {
+            throw new IllegalArgumentException("Invalid ruleset files ${invalidFiles}")
+        }
 
         log.log new Status(IStatus.INFO, Activator.PLUGIN_ID, "Loading rulesets took ${end - begin} ms")
 
