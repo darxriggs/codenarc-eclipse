@@ -1,0 +1,9 @@
+rsync \
+-a \
+-v \
+--delete \
+--progress \
+-e ssh \
+web-site/WebContent/ \
+renescheibe,codenarceclipse@web.sourceforge.net:htdocs
+

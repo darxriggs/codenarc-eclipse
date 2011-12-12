@@ -1,0 +1,11 @@
+rsync \
+-a \
+-v \
+--progress \
+--exclude '/.project' \
+--exclude '/index.html' \
+--exclude '/web' \
+-e ssh \
+update-site.snapshot/ \
+renescheibe,codenarceclipse@frs.sourceforge.net:/home/pfs/project/c/co/codenarceclipse/eclipse/snapshot
+
