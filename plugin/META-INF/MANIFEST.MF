@@ -11,7 +11,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface.text,
  org.eclipse.jdt.core,
  org.eclipse.jdt.groovy.core;bundle-version="2.1.0",
- org.codehaus.groovy;bundle-version="[1.7.0,1.7.99]",
+ org.codehaus.groovy;bundle-version="[1.7.0,1.8.99]",
  org.codehaus.groovy.eclipse;bundle-version="2.1.0",
  org.codehaus.groovy.eclipse.core;bundle-version="2.1.0"
 Bundle-ActivationPolicy: lazy
