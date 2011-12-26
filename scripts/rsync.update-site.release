@@ -1,6 +1,7 @@
 rsync \
 -a \
 -v \
+--delete \
 --progress \
 --exclude '/.project' \
 --exclude '/index.html' \
