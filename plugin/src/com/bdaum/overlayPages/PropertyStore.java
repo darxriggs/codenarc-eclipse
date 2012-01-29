@@ -63,8 +63,7 @@ public class PropertyStore extends PreferenceStore {
      */
     private void writeProperties() throws IOException {
         String[] preferences = super.preferenceNames();
-        for (int i = 0; i < preferences.length; i++) {
-            String name = preferences[i];
+        for (String name : preferences) {
             try {
                 setProperty(name, getString(name));
             } catch (CoreException e) {
@@ -235,7 +234,7 @@ public class PropertyStore extends PreferenceStore {
      */
     @Override
     public void setToDefault(String name) {
-            setValue(name, getDefaultString(name));
+        setValue(name, getDefaultString(name));
     }
 
     /* (non-Javadoc)

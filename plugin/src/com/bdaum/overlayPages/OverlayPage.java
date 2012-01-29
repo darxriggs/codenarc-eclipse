@@ -40,15 +40,15 @@ import org.eclipse.ui.part.PageBook;
 public abstract class OverlayPage extends PropertyPage {
 
     /*** Name of resource property for the selection of workbench or project settings ***/
-    public static final String USEPROJECTSETTINGS = "useProjectSettings"; //$NON-NLS-1$
+    public static final String USE_PROJECT_SETTINGS = "useProjectSettings"; //$NON-NLS-1$
 
     private static final String FALSE = "false"; //$NON-NLS-1$
     private static final String TRUE = "true"; //$NON-NLS-1$
 
     // Additional buttons for property pages
-    private Button useWorkspaceSettingsButton,
-        useProjectSettingsButton,
-        configureButton;
+    private Button useWorkspaceSettingsButton;
+    private Button useProjectSettingsButton;
+    private Button configureButton;
 
     // Overlay preference store for property pages
     private PropertyStore overlayStore;
@@ -154,7 +154,7 @@ public abstract class OverlayPage extends PropertyPage {
         try {
             String use =
                 ((IResource) getElement()).getPersistentProperty(
-                    new QualifiedName(pageId, USEPROJECTSETTINGS));
+                    new QualifiedName(pageId, USE_PROJECT_SETTINGS));
             if (TRUE.equals(use)) {
                 useProjectSettingsButton.setSelection(true);
                 configureButton.setEnabled(false);
@@ -273,7 +273,7 @@ public abstract class OverlayPage extends PropertyPage {
                 String value =
                     (useProjectSettingsButton.getSelection()) ? TRUE : FALSE;
                 resource.setPersistentProperty(
-                    new QualifiedName(pageId, USEPROJECTSETTINGS),
+                    new QualifiedName(pageId, USE_PROJECT_SETTINGS),
                     value);
             } catch (CoreException e) {
             }
