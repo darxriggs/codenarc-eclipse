@@ -113,6 +113,7 @@ public abstract class OverlayPage extends PropertyPage {
      *
      * @see org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse.swt.widgets.Composite)
      */
+    @Override
     protected Control createContents(Composite parent) {
         if (isPropertyPage())
             createSelectionGroup(parent);
@@ -144,6 +145,7 @@ public abstract class OverlayPage extends PropertyPage {
         configureButton = new Button(comp, SWT.PUSH);
         configureButton.setText(Messages.getString("OverlayPage.Configure_Workspace_Settings")); //$NON-NLS-1$
         configureButton.addSelectionListener(new SelectionAdapter() {
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 configureWorkspaceSettings();
             }
@@ -173,6 +175,7 @@ public abstract class OverlayPage extends PropertyPage {
         final Button button = new Button(parent, SWT.RADIO);
         button.setText(label);
         button.addSelectionListener(new SelectionAdapter() {
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 configureButton.setEnabled(
                     button == useWorkspaceSettingsButton);
@@ -188,6 +191,7 @@ public abstract class OverlayPage extends PropertyPage {
      *
      * @see org.eclipse.jface.preference.PreferencePage#createControl()
      */
+    @Override
     public void createControl(Composite parent) {
         // Special treatment for property pages
         if (isPropertyPage()) {
@@ -211,6 +215,7 @@ public abstract class OverlayPage extends PropertyPage {
      * Returns in case of property pages the overlay store - otherwise the standard preference store
      * @see org.eclipse.jface.preference.PreferencePage#getPreferenceStore()
      */
+    @Override
     public IPreferenceStore getPreferenceStore() {
         if (isPropertyPage())
             return overlayStore;
@@ -244,8 +249,7 @@ public abstract class OverlayPage extends PropertyPage {
      */
     private void setControlsEnabled(Composite root, boolean enabled) {
         Control[] children = root.getChildren();
-        for (int i = 0; i < children.length; i++) {
-            Control child = children[i];
+        for (Control child : children) {
             if (!(child instanceof CTabFolder) && !(child instanceof TabFolder) && !(child instanceof PageBook))
                 child.setEnabled(enabled);
             if (child instanceof Composite)
@@ -259,10 +263,11 @@ public abstract class OverlayPage extends PropertyPage {
      *
      * @see org.eclipse.jface.preference.IPreferencePage#performOk()
      */
+    @Override
     public boolean performOk() {
         boolean result = super.performOk();
         if (result && isPropertyPage()) {
-            // Save state of radiobuttons in project properties
+            // Save state of radio buttons in project properties
             IResource resource = (IResource) getElement();
             try {
                 String value =
@@ -282,6 +287,7 @@ public abstract class OverlayPage extends PropertyPage {
      *
      * @see org.eclipse.jface.preference.PreferencePage#performDefaults()
      */
+    @Override
     protected void performDefaults() {
         if (isPropertyPage()) {
             useWorkspaceSettingsButton.setSelection(true);

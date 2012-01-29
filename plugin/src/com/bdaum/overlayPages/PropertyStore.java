@@ -45,6 +45,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPersistentPreferenceStore#save()
      */
+    @Override
     public void save() throws IOException {
         writeProperties();
     }
@@ -52,6 +53,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.PreferenceStore#save(java.io.OutputStream, java.lang.String)
      */
+    @Override
     public void save(OutputStream out, String header) throws IOException {
         writeProperties();
     }
@@ -86,6 +88,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPreferenceStore#getDefaultBoolean(java.lang.String)
      */
+    @Override
     public boolean getDefaultBoolean(String name) {
         return workbenchStore.getDefaultBoolean(name);
     }
@@ -93,6 +96,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPreferenceStore#getDefaultDouble(java.lang.String)
      */
+    @Override
     public double getDefaultDouble(String name) {
         return workbenchStore.getDefaultDouble(name);
     }
@@ -100,6 +104,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPreferenceStore#getDefaultFloat(java.lang.String)
      */
+    @Override
     public float getDefaultFloat(String name) {
         return workbenchStore.getDefaultFloat(name);
     }
@@ -107,6 +112,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPreferenceStore#getDefaultInt(java.lang.String)
      */
+    @Override
     public int getDefaultInt(String name) {
         return workbenchStore.getDefaultInt(name);
     }
@@ -114,6 +120,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPreferenceStore#getDefaultLong(java.lang.String)
      */
+    @Override
     public long getDefaultLong(String name) {
         return workbenchStore.getDefaultLong(name);
     }
@@ -121,6 +128,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPreferenceStore#getDefaultString(java.lang.String)
      */
+    @Override
     public String getDefaultString(String name) {
         return workbenchStore.getDefaultString(name);
     }
@@ -130,6 +138,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPreferenceStore#getBoolean(java.lang.String)
      */
+    @Override
     public boolean getBoolean(String name) {
         insertValue(name);
         return super.getBoolean(name);
@@ -138,6 +147,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPreferenceStore#getDouble(java.lang.String)
      */
+    @Override
     public double getDouble(String name) {
         insertValue(name);
         return super.getDouble(name);
@@ -146,6 +156,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPreferenceStore#getFloat(java.lang.String)
      */
+    @Override
     public float getFloat(String name) {
         insertValue(name);
         return super.getFloat(name);
@@ -154,6 +165,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPreferenceStore#getInt(java.lang.String)
      */
+    @Override
     public int getInt(String name) {
         insertValue(name);
         return super.getInt(name);
@@ -162,6 +174,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPreferenceStore#getLong(java.lang.String)
      */
+    @Override
     public long getLong(String name) {
         insertValue(name);
         return super.getLong(name);
@@ -170,6 +183,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPreferenceStore#getString(java.lang.String)
      */
+    @Override
     public String getString(String name) {
         insertValue(name);
         return super.getString(name);
@@ -211,6 +225,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPreferenceStore#contains(java.lang.String)
      */
+    @Override
     public boolean contains(String name) {
         return workbenchStore.contains(name);
     }
@@ -218,6 +233,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPreferenceStore#setToDefault(java.lang.String)
      */
+    @Override
     public void setToDefault(String name) {
             setValue(name, getDefaultString(name));
     }
@@ -225,6 +241,7 @@ public class PropertyStore extends PreferenceStore {
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.IPreferenceStore#isDefault(java.lang.String)
      */
+    @Override
     public boolean isDefault(String name) {
         String defaultValue = getDefaultString(name);
         if (defaultValue == null) return false;

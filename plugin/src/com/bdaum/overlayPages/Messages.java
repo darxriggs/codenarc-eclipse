@@ -22,8 +22,6 @@ public class Messages {
 
     private static boolean notRead = true;
 
-    public Messages() {
-    }
     public static ResourceBundle getResourceBundle() {
         if (notRead) {
             notRead = false;
@@ -36,6 +34,7 @@ public class Messages {
 
         return fgResourceBundle;
     }
+
     public static String getString(String key) {
         try {
             return getResourceBundle().getString(key);

@@ -11,7 +11,6 @@
 package com.bdaum.overlayPages;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IResource;
@@ -52,7 +51,7 @@ public abstract class FieldEditorOverlayPage
     private static final String TRUE = "true"; //$NON-NLS-1$
 
     // Stores all created field editors
-    private List editors = new ArrayList();
+    private List<FieldEditor> editors = new ArrayList<FieldEditor>();
 
     // Stores owning element of properties
     private IAdaptable element;
@@ -140,18 +139,20 @@ public abstract class FieldEditorOverlayPage
      *
      * @see org.eclipse.jface.preference.FieldEditorPreferencePage#addField(org.eclipse.jface.preference.FieldEditor)
      */
+    @Override
     protected void addField(FieldEditor editor) {
         editors.add(editor);
         super.addField(editor);
     }
 
     /**
-     *  We override the createControl method.
+     * We override the createControl method.
      * In case of property pages we create a new PropertyStore as local preference store.
      * After all control have been create, we enable/disable these controls.
      *
      * @see org.eclipse.jface.preference.PreferencePage#createControl()
      */
+    @Override
     public void createControl(Composite parent) {
         // Special treatment for property pages
         if (isPropertyPage()) {
@@ -177,6 +178,7 @@ public abstract class FieldEditorOverlayPage
      *
      * @see org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse.swt.widgets.Composite)
      */
+    @Override
     protected Control createContents(Composite parent) {
         if (isPropertyPage())
             createSelectionGroup(parent);
@@ -202,6 +204,7 @@ public abstract class FieldEditorOverlayPage
         configureButton = new Button(comp, SWT.PUSH);
         configureButton.setText(Messages.getString("OverlayPage.Configure_Workspace_Settings")); //$NON-NLS-1$
         configureButton.addSelectionListener(new SelectionAdapter() {
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 configureWorkspaceSettings();
             }
@@ -231,6 +234,7 @@ public abstract class FieldEditorOverlayPage
         final Button button = new Button(parent, SWT.RADIO);
         button.setText(label);
         button.addSelectionListener(new SelectionAdapter() {
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 configureButton.setEnabled(
                     button == useWorkspaceSettingsButton);
@@ -245,6 +249,7 @@ public abstract class FieldEditorOverlayPage
      * in case of preference pages the standard preference store
      * @see org.eclipse.jface.preference.PreferencePage#getPreferenceStore()
      */
+    @Override
     public IPreferenceStore getPreferenceStore() {
         if (isPropertyPage())
             return overlayStore;
@@ -267,9 +272,7 @@ public abstract class FieldEditorOverlayPage
      */
     protected void updateFieldEditors(boolean enabled) {
         Composite parent = getFieldEditorParent();
-        Iterator it = editors.iterator();
-        while (it.hasNext()) {
-            FieldEditor editor = (FieldEditor) it.next();
+        for (FieldEditor editor : editors) {
             editor.setEnabled(enabled, parent);
         }
     }
@@ -281,6 +284,7 @@ public abstract class FieldEditorOverlayPage
      *
      * @see org.eclipse.jface.preference.IPreferencePage#performOk()
      */
+    @Override
     public boolean performOk() {
         boolean result = super.performOk();
         if (result && isPropertyPage()) {
@@ -304,6 +308,7 @@ public abstract class FieldEditorOverlayPage
      *
      * @see org.eclipse.jface.preference.PreferencePage#performDefaults()
      */
+    @Override
     protected void performDefaults() {
         if (isPropertyPage()) {
             useWorkspaceSettingsButton.setSelection(true);
