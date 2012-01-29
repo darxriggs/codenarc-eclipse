@@ -125,6 +125,10 @@ public abstract class FieldEditorOverlayPage
         return element;
     }
 
+    private IResource getElementAsResource() {
+        return (IResource) getElement().getAdapter(IResource.class);
+    }
+
     /**
      * Returns true if this instance represents a property page
      * @return - true for property pages, false for preference pages
@@ -161,7 +165,7 @@ public abstract class FieldEditorOverlayPage
             // Create an overlay preference store and fill it with properties
             overlayStore =
                 new PropertyStore(
-                    (IResource) getElement(),
+                    getElementAsResource(),
                     super.getPreferenceStore(),
                     pageId);
             // Set overlay store as current preference store
@@ -212,7 +216,7 @@ public abstract class FieldEditorOverlayPage
         // Set workspace/project radio buttons
         try {
             String use =
-                ((IResource) getElement()).getPersistentProperty(
+                getElementAsResource().getPersistentProperty(
                     new QualifiedName(pageId, USE_PROJECT_SETTINGS));
             if (TRUE.equals(use)) {
                 useProjectSettingsButton.setSelection(true);
@@ -289,7 +293,7 @@ public abstract class FieldEditorOverlayPage
         boolean result = super.performOk();
         if (result && isPropertyPage()) {
             // Save state of radiobuttons in project properties
-            IResource resource = (IResource) getElement();
+            IResource resource = getElementAsResource();
             try {
                 String value =
                     (useProjectSettingsButton.getSelection()) ? TRUE : FALSE;
