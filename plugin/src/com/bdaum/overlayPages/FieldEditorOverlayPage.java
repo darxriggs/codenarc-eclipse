@@ -35,6 +35,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.IWorkbenchPropertyPage;
 
 /**
@@ -56,10 +58,9 @@ public abstract class FieldEditorOverlayPage
     // Stores owning element of properties
     private IAdaptable element;
 
-    // Additional buttons for property pages
-    private Button useWorkspaceSettingsButton,
-        useProjectSettingsButton,
-        configureButton;
+    // Additional elements for property pages
+    private Button projectSettingsButton;
+    private Link workspaceSettingsLink;
 
     // Overlay preference store for property pages
     private IPreferenceStore overlayStore;
@@ -178,74 +179,88 @@ public abstract class FieldEditorOverlayPage
 
     /**
      * We override the createContents method.
-     * In case of property pages we insert two radio buttons at the top of the page.
+     * In case of property pages we insert a button to enable project-specific settings.
      *
      * @see org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse.swt.widgets.Composite)
      */
     @Override
     protected Control createContents(Composite parent) {
         if (isPropertyPage())
-            createSelectionGroup(parent);
+            createProjectVsWorkspaceSettingsSelection(parent);
         return super.createContents(parent);
     }
 
-    /**
-     * Creates and initializes a selection group with two choice buttons and one push button.
-     * @param parent - the parent composite
-     */
-    private void createSelectionGroup(Composite parent) {
-        Composite comp = new Composite(parent, SWT.NONE);
+    private void createProjectVsWorkspaceSettingsSelection(Composite parent) {
+        Composite composite = createProjectVsWorkspaceSettingsSelectionComposite(parent);
+
+        projectSettingsButton = createProjectSettingsButton(composite);
+        workspaceSettingsLink = createWorkspaceSettingsLink(composite);
+        loadSelectionGroupSettings();
+
+        createSeparator(parent);
+    }
+
+    private Composite createProjectVsWorkspaceSettingsSelectionComposite(Composite parent) {
+        Composite composite = new Composite(parent, SWT.NONE);
         GridLayout layout = new GridLayout(2, false);
         layout.marginHeight = 0;
         layout.marginWidth = 0;
-        comp.setLayout(layout);
-        comp.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        Composite radioGroup = new Composite(comp, SWT.NONE);
-        radioGroup.setLayout(new GridLayout());
-        radioGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        useWorkspaceSettingsButton = createRadioButton(radioGroup, Messages.getString("OverlayPage.Use_Workspace_Settings")); //$NON-NLS-1$
-        useProjectSettingsButton = createRadioButton(radioGroup, Messages.getString("OverlayPage.Use_Project_Settings")); //$NON-NLS-1$
-        configureButton = new Button(comp, SWT.PUSH);
-        configureButton.setText(Messages.getString("OverlayPage.Configure_Workspace_Settings")); //$NON-NLS-1$
-        configureButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                configureWorkspaceSettings();
-            }
-        });
-        // Set workspace/project radio buttons
-        try {
-            String use =
-                getElementAsResource().getPersistentProperty(
-                    new QualifiedName(pageId, USE_PROJECT_SETTINGS));
-            if (TRUE.equals(use)) {
-                useProjectSettingsButton.setSelection(true);
-                configureButton.setEnabled(false);
-            } else
-                useWorkspaceSettingsButton.setSelection(true);
-        } catch (CoreException e) {
-            useWorkspaceSettingsButton.setSelection(true);
-        }
+        composite.setLayout(layout);
+        composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        return composite;
     }
 
-    /**
-     * Convenience method creating a radio button
-     * @param parent - the parent composite
-     * @param label - the button label
-     * @return - the new button
-     */
-    private Button createRadioButton(Composite parent, String label) {
-        final Button button = new Button(parent, SWT.RADIO);
+    private Button createProjectSettingsButton(Composite parent) {
+        String label = Messages.getString("OverlayPage.Use_Project_Settings");
+        final Button button = new Button(parent, SWT.CHECK);
         button.setText(label);
         button.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                configureButton.setEnabled(
-                    button == useWorkspaceSettingsButton);
+                workspaceSettingsLink.setEnabled(!button.getSelection());
                 updateFieldEditors();
             }
         });
         return button;
+    }
+
+    private Link createWorkspaceSettingsLink(Composite composite) {
+        String text = Messages.getString("OverlayPage.Configure_Workspace_Settings");
+        Link link = new Link(composite, SWT.NONE);
+        link.setFont(composite.getFont());
+        link.setText("<A>" + text + "</A>");
+        link.setLayoutData(new GridData(SWT.END, SWT.CENTER, true, false));
+        link.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                configureWorkspaceSettings();
+            }
+
+            @Override
+            public void widgetDefaultSelected(SelectionEvent e) {
+                widgetSelected(e);
+            }
+        });
+        return link;
+    }
+
+    private void createSeparator(Composite parent) {
+        Label separator = new Label(parent, SWT.HORIZONTAL | SWT.SEPARATOR);
+        separator.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    }
+
+    private void loadSelectionGroupSettings() {
+        try {
+            QualifiedName key = new QualifiedName(pageId, USE_PROJECT_SETTINGS);
+            String value = getElementAsResource().getPersistentProperty(key);
+            boolean isProjectSpecific = TRUE.equals(value);
+
+            projectSettingsButton.setSelection(isProjectSpecific);
+            workspaceSettingsLink.setEnabled(!isProjectSpecific);
+        } catch (CoreException e) {
+            projectSettingsButton.setSelection(false);
+            workspaceSettingsLink.setEnabled(true);
+        }
     }
 
     /**
@@ -264,8 +279,7 @@ public abstract class FieldEditorOverlayPage
      * Enables or disables the field editors and buttons of this page
      */
     private void updateFieldEditors() {
-        // We iterate through all field editors
-        boolean enabled = useProjectSettingsButton.getSelection();
+        boolean enabled = projectSettingsButton.getSelection();
         updateFieldEditors(enabled);
     }
 
@@ -284,7 +298,7 @@ public abstract class FieldEditorOverlayPage
     /**
      * We override the performOk method. In case of property pages we copy the values in the
      * overlay store into the property values of the selected project.
-     * We also save the state of the radio buttons.
+     * We also save the state of the button.
      *
      * @see org.eclipse.jface.preference.IPreferencePage#performOk()
      */
@@ -292,14 +306,11 @@ public abstract class FieldEditorOverlayPage
     public boolean performOk() {
         boolean result = super.performOk();
         if (result && isPropertyPage()) {
-            // Save state of radiobuttons in project properties
             IResource resource = getElementAsResource();
             try {
-                String value =
-                    (useProjectSettingsButton.getSelection()) ? TRUE : FALSE;
-                resource.setPersistentProperty(
-                    new QualifiedName(pageId, USE_PROJECT_SETTINGS),
-                    value);
+                QualifiedName key = new QualifiedName(pageId, USE_PROJECT_SETTINGS);
+                String value = projectSettingsButton.getSelection() ? TRUE : FALSE;
+                resource.setPersistentProperty(key, value);
             } catch (CoreException e) {
             }
         }
@@ -315,9 +326,8 @@ public abstract class FieldEditorOverlayPage
     @Override
     protected void performDefaults() {
         if (isPropertyPage()) {
-            useWorkspaceSettingsButton.setSelection(true);
-            useProjectSettingsButton.setSelection(false);
-            configureButton.setEnabled(true);
+            projectSettingsButton.setSelection(false);
+            workspaceSettingsLink.setEnabled(true);
             updateFieldEditors();
         }
         super.performDefaults();
@@ -325,16 +335,12 @@ public abstract class FieldEditorOverlayPage
 
     /**
      * Creates a new preferences page and opens it
-     * @see com.bdaum.SpellChecker.preferences.SpellCheckerPreferencePage#configureWorkspaceSettings()
      */
     protected void configureWorkspaceSettings() {
         try {
-            // create a new instance of the current class
-            IPreferencePage page =
-                (IPreferencePage) this.getClass().newInstance();
+            IPreferencePage page = (IPreferencePage) this.getClass().newInstance();
             page.setTitle(getTitle());
             page.setImageDescriptor(image);
-            // and show it
             showPreferencePage(pageId, page);
         } catch (InstantiationException e) {
             e.printStackTrace();
