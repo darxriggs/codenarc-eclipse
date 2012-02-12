@@ -3,12 +3,13 @@ package org.codenarc.eclipse.plugin.preferences;
 import org.codenarc.eclipse.Activator;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditor;
-import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
-public class PreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
+import com.bdaum.overlayPages.FieldEditorOverlayPage;
+
+public class PreferencePage extends FieldEditorOverlayPage implements IWorkbenchPreferencePage {
 
     private BooleanFieldEditor disableButton;
     private FileListEditor rulesetList;
@@ -27,7 +28,6 @@ public class PreferencePage extends FieldEditorPreferencePage implements IWorkbe
         addField(rulesetList);
 	}
 
-	@Override
     public void init(IWorkbench workbench) {}
 
     @Override
@@ -44,6 +44,11 @@ public class PreferencePage extends FieldEditorPreferencePage implements IWorkbe
                 propertyChangeDisableButton(event);
             }
         }
+    }
+
+    @Override
+    protected String getPageId() {
+        return "org.codenarc.eclipse.plugin.preferences.PreferencePage";
     }
 
     @Override

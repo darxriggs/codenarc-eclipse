@@ -162,9 +162,9 @@
       </specification>
    </extension>
    <extension
+         name="Workspace Preferences"
          point="org.eclipse.ui.preferencePages">
       <page
-            category="org.codehaus.groovy.eclipse.preferences"
             class="org.codenarc.eclipse.plugin.preferences.PreferencePage"
             id="org.codenarc.eclipse.plugin.preferences.PreferencePage"
             name="CodeNarc">
@@ -175,6 +175,19 @@
       <initializer
             class="org.codenarc.eclipse.plugin.preferences.PreferenceInitializer">
       </initializer>
+   </extension>
+   <extension
+         name="Project Properties"
+         point="org.eclipse.ui.propertyPages">
+      <page
+            class="org.codenarc.eclipse.plugin.preferences.PreferencePage"
+            id="org.codenarc.eclipse.plugin.properties.PropertyPage"
+            name="CodeNarc">
+         <filter
+               name="nature"
+               value="org.eclipse.jdt.groovy.core.groovyNature">
+         </filter>
+      </page>
    </extension>
 
 </plugin>
