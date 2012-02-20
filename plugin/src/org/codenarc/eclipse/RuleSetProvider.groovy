@@ -62,7 +62,7 @@ class RuleSetProvider {
             throw new IllegalArgumentException("Invalid ruleset files ${invalidFiles}")
         }
 
-        log.log new Status(IStatus.INFO, Activator.PLUGIN_ID, "Loading rulesets took ${end - begin} ms")
+        log.log new Status(IStatus.INFO, Activator.PLUGIN_ID, "Loading ${paths?.size()} ruleset(s) took ${end - begin} ms")
 
         overallRuleSet
     }
