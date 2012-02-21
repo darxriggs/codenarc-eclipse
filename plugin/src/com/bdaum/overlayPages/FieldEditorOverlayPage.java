@@ -47,10 +47,10 @@ public abstract class FieldEditorOverlayPage
     implements IWorkbenchPropertyPage {
 
     /*** Name of resource property for the selection of workbench or project settings ***/
-    public static final String USE_PROJECT_SETTINGS = "useProjectSettings"; //$NON-NLS-1$
+    public static final String USE_PROJECT_SETTINGS = "useProjectSettings";
 
-    private static final String FALSE = "false"; //$NON-NLS-1$
-    private static final String TRUE = "true"; //$NON-NLS-1$
+    public static final String FALSE = "false";
+    public static final String TRUE = "true";
 
     // Stores all created field editors
     private List<FieldEditor> editors = new ArrayList<FieldEditor>();
@@ -211,7 +211,7 @@ public abstract class FieldEditorOverlayPage
     }
 
     private Button createProjectSettingsButton(Composite parent) {
-        String label = Messages.getString("OverlayPage.Use_Project_Settings");
+        String label = "Enable pr&oject specific settings";
         final Button button = new Button(parent, SWT.CHECK);
         button.setText(label);
         button.addSelectionListener(new SelectionAdapter() {
@@ -225,7 +225,7 @@ public abstract class FieldEditorOverlayPage
     }
 
     private Link createWorkspaceSettingsLink(Composite composite) {
-        String text = Messages.getString("OverlayPage.Configure_Workspace_Settings");
+        String text = "&Configure Workspace Settings...";
         Link link = new Link(composite, SWT.NONE);
         link.setFont(composite.getFont());
         link.setText("<A>" + text + "</A>");

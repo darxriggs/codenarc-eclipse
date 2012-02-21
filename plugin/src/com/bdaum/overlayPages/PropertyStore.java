@@ -67,7 +67,7 @@ public class PropertyStore extends PreferenceStore {
             try {
                 setProperty(name, getString(name));
             } catch (CoreException e) {
-                throw new IOException(Messages.getString("PropertyStore.Cannot_write_resource_property") + name); //$NON-NLS-1$
+                throw new IOException("Cannot write resource property: " + name);
             }
         }
     }
