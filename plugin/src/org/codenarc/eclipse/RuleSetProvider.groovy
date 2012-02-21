@@ -1,5 +1,6 @@
 package org.codenarc.eclipse
 
+import org.codenarc.ruleregistry.RuleRegistryInitializer
 import org.codenarc.ruleset.CompositeRuleSet
 import org.codenarc.ruleset.RuleSet
 import org.codenarc.ruleset.RuleSetUtil
@@ -44,6 +45,8 @@ class RuleSetProvider {
     }
 
     static RuleSet createRuleSetFromFiles(List paths) {
+        new RuleRegistryInitializer().initializeRuleRegistry()
+
         def invalidFiles = []
         def overallRuleSet = new CompositeRuleSet()
 
