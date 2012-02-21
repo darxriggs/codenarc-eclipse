@@ -10,10 +10,10 @@ import org.codenarc.eclipse.Activator
  */
 class PreferenceInitializer extends AbstractPreferenceInitializer {
 
-	@Override
+    @Override
     void initializeDefaultPreferences() {
-		def store = Activator.default.preferenceStore
-		store.setDefault(PreferenceConstants.USE_CUSTOM_RULESET, false)
-		store.setDefault(PreferenceConstants.RULESET_FILES, '')
-	}
+        def store = Activator.default.preferenceStore
+        store.setDefault(PreferenceConstants.USE_PROJECT_SETTINGS, false)
+        store.setDefault(PreferenceConstants.RULESET_FILES, '')
+    }
 }

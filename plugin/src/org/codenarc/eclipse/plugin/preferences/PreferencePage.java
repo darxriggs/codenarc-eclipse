@@ -14,19 +14,19 @@ public class PreferencePage extends FieldEditorOverlayPage implements IWorkbench
     private BooleanFieldEditor disableButton;
     private FileListEditor rulesetList;
 
-	public PreferencePage() {
-		super(GRID);
-		setPreferenceStore(Activator.getDefault().getPreferenceStore());
-	}
+    public PreferencePage() {
+        super(GRID);
+        setPreferenceStore(Activator.getDefault().getPreferenceStore());
+    }
 
-	@Override
+    @Override
     public void createFieldEditors() {
-	    disableButton = new BooleanFieldEditor(PreferenceConstants.USE_CUSTOM_RULESET, "Use custom ruleset", getFieldEditorParent());
-	    rulesetList = new FileListEditor(PreferenceConstants.RULESET_FILES, "", "Choose a ruleset file", getFieldEditorParent());
+        disableButton = new BooleanFieldEditor(PreferenceConstants.USE_PROJECT_SETTINGS, "Use custom ruleset", getFieldEditorParent());
+        rulesetList = new FileListEditor(PreferenceConstants.RULESET_FILES, "", "Choose a ruleset file", getFieldEditorParent());
 
         addField(disableButton);
         addField(rulesetList);
-	}
+    }
 
     public void init(IWorkbench workbench) {}
 
