@@ -1,6 +1,5 @@
 package org.codenarc.eclipse.plugin.preferences
 
-import org.codenarc.eclipse.RuleSetProvider
 import org.eclipse.jface.preference.ListEditor
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Composite

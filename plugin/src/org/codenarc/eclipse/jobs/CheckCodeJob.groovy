@@ -6,6 +6,7 @@ import org.codenarc.eclipse.Activator
 import org.codenarc.eclipse.CodeNarcMarker
 import org.codenarc.eclipse.RuleSetProvider
 import org.codenarc.eclipse.SelectionUtils
+import org.codenarc.eclipse.plugin.preferences.PreferenceAccessor
 import org.codenarc.eclipse.plugin.preferences.PreferenceConstants
 import org.codenarc.results.Results
 import org.codenarc.ruleset.RuleSet
@@ -37,7 +38,8 @@ class CheckCodeJob extends Job {
         this.monitor = monitor
 
         def files = selectFiles()
-        def ruleSet = createRuleSet()
+        def project = getProjectFromSelection()
+        def ruleSet = createRuleSet(project)
         checkFiles(files, ruleSet)
 
         monitor.isCanceled() ? Status.CANCEL_STATUS : Status.OK_STATUS
@@ -51,22 +53,26 @@ class CheckCodeJob extends Job {
         files
     }
 
-    private RuleSet createRuleSet() {
-        monitor.beginTask('Loading rulesets', 10)
+    private IResource getProjectFromSelection() {
+        def firstResourceWithProject = selection.find{ IResource resource -> resource.project }
+        firstResourceWithProject?.project
+    }
 
-        def preferenceStore = Activator.default.preferenceStore
-        def useCustomRuleSet = preferenceStore.getBoolean(PreferenceConstants.USE_CUSTOM_RULESET)
+    private RuleSet createRuleSet(IResource project) {
+		def workUnits = 10
+        monitor.beginTask('Loading rulesets', workUnits)
 
         def ruleSet
-        if (useCustomRuleSet) {
-            def fileListAsString = preferenceStore.getString(PreferenceConstants.RULESET_FILES)
+        if (PreferenceAccessor.hasProjectSpecificSetting(project)) {
+            def fileListAsString = PreferenceAccessor.getOverlayedPreferenceValue(project,
+                                                                                  PreferenceConstants.RULESET_FILES)
             def paths = fileListAsString.split(File.pathSeparator).collect{ 'file:' + it }
             ruleSet = RuleSetProvider.createRuleSetFromFiles(paths)
         } else {
             ruleSet = RuleSetProvider.createDefaultRuleSet()
         }
 
-        monitor.worked(10)
+        monitor.worked(workUnits)
 
         ruleSet
     }

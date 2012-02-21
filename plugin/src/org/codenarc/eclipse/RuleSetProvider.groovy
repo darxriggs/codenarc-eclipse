@@ -13,7 +13,7 @@ import org.eclipse.core.runtime.Status
  */
 class RuleSetProvider {
 
-    private static final ILog log = Activator.getDefault().getLog()
+    private static final ILog log = Activator.default.log
 
     private static final DEFAULT_RULESETS = [
         'basic',

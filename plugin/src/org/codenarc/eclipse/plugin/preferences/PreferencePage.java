@@ -11,6 +11,8 @@ import com.bdaum.overlayPages.FieldEditorOverlayPage;
 
 public class PreferencePage extends FieldEditorOverlayPage implements IWorkbenchPreferencePage {
 
+    public final static String PAGE_ID = "org.codenarc.eclipse.plugin.preferences.PreferencePage";
+
     private BooleanFieldEditor disableButton;
     private FileListEditor rulesetList;
 
@@ -48,7 +50,7 @@ public class PreferencePage extends FieldEditorOverlayPage implements IWorkbench
 
     @Override
     protected String getPageId() {
-        return "org.codenarc.eclipse.plugin.preferences.PreferencePage";
+        return PAGE_ID;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package org.codenarc.eclipse.plugin.preferences
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer
-import org.eclipse.jface.preference.IPreferenceStore
 
 import org.codenarc.eclipse.Activator
 
