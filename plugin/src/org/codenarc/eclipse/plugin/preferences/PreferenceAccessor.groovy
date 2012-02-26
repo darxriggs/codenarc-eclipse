@@ -10,7 +10,6 @@ import com.bdaum.overlayPages.FieldEditorOverlayPage
 class PreferenceAccessor {
 
     static String getOverlayedPreferenceValue(IResource resource, String key) {
-
         if (hasProjectSpecificSetting(resource.project)) {
             return getProperty(resource, key)
         } else {
