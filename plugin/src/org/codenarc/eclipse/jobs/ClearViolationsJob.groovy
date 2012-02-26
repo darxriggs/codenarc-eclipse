@@ -2,6 +2,7 @@ package org.codenarc.eclipse.jobs
 
 import org.codenarc.eclipse.Activator
 import org.codenarc.eclipse.CodeNarcMarker
+import org.codenarc.eclipse.Logger
 import org.codenarc.eclipse.SelectionUtils
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IResource
@@ -15,7 +16,7 @@ import org.eclipse.jface.viewers.IStructuredSelection
 
 class ClearViolationsJob extends Job {
 
-    private static final ILog log = Activator.default.log
+    private static final Logger log = Logger.instance
 
     private IProgressMonitor monitor
     private IStructuredSelection selection
@@ -58,7 +59,7 @@ class ClearViolationsJob extends Job {
         try {
             file.deleteMarkers(CodeNarcMarker.SUPER_TYPE, true, IResource.DEPTH_INFINITE)
         } catch (CoreException e) {
-            log.log new Status(IStatus.ERROR, Activator.PLUGIN_ID, 'Could not delete marker', e)
+            log.error('Could not delete marker', e)
         }
     }
 }

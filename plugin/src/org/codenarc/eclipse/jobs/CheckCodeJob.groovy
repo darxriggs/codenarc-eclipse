@@ -4,6 +4,7 @@ import org.codehaus.jdt.groovy.model.GroovyCompilationUnit
 import org.codenarc.analyzer.StringSourceAnalyzer
 import org.codenarc.eclipse.Activator
 import org.codenarc.eclipse.CodeNarcMarker
+import org.codenarc.eclipse.Logger
 import org.codenarc.eclipse.RuleSetProvider
 import org.codenarc.eclipse.SelectionUtils
 import org.codenarc.eclipse.plugin.preferences.PreferenceAccessor
@@ -14,7 +15,6 @@ import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IMarker
 import org.eclipse.core.resources.IResource
 import org.eclipse.core.runtime.CoreException
-import org.eclipse.core.runtime.ILog
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.IStatus
 import org.eclipse.core.runtime.Status
@@ -24,7 +24,7 @@ import org.eclipse.jface.viewers.IStructuredSelection
 
 class CheckCodeJob extends Job {
 
-    private static final ILog log = Activator.default.log
+    private static final Logger log = Logger.instance
 
     private IProgressMonitor monitor
     private IStructuredSelection selection
@@ -97,7 +97,7 @@ class CheckCodeJob extends Job {
 
             createViolationMarkers(results, file)
         } catch (CoreException e) {
-            log.log new Status(IStatus.ERROR, Activator.PLUGIN_ID, 'Could not create violation marker', e)
+            log.error('Could not create violation marker', e)
         }
     }
 
@@ -111,7 +111,7 @@ class CheckCodeJob extends Job {
         def results = analyzer.analyze(ruleSet)
         def end = System.currentTimeMillis()
 
-        log.log new Status(IStatus.INFO, Activator.PLUGIN_ID, "Analyzing $file.name took ${end - begin} ms")
+        log.info("Analyzing $file.name took ${end - begin} ms")
 
         results
     }

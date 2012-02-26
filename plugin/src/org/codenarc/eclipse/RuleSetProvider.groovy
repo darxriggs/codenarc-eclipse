@@ -1,5 +1,6 @@
 package org.codenarc.eclipse
 
+import org.codenarc.eclipse.Logger
 import org.codenarc.ruleregistry.RuleRegistryInitializer
 import org.codenarc.ruleset.CompositeRuleSet
 import org.codenarc.ruleset.RuleSet
@@ -13,7 +14,7 @@ import org.eclipse.core.runtime.Status
  */
 class RuleSetProvider {
 
-    private static final ILog log = Activator.default.log
+    private static final Logger log = Logger.instance
 
     private static final DEFAULT_RULESETS = [
         'basic',
@@ -65,7 +66,7 @@ class RuleSetProvider {
             throw new IllegalArgumentException("Invalid ruleset files ${invalidFiles}")
         }
 
-        log.log new Status(IStatus.INFO, Activator.PLUGIN_ID, "Loading ${paths?.size()} ruleset(s) took ${end - begin} ms")
+        log.info("Loading ${paths?.size()} ruleset(s) took ${end - begin} ms")
 
         overallRuleSet
     }
