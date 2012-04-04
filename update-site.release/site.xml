@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.codenarc.eclipse.feature_0.16.1.qualifier.jar" id="org.codenarc.eclipse.feature" version="0.16.1.qualifier">
+   <feature url="features/org.codenarc.eclipse.feature_0.17.0.qualifier.jar" id="org.codenarc.eclipse.feature" version="0.17.0.qualifier">
       <category name="org.codenarc.eclipse"/>
    </feature>
    <category-def name="org.codenarc.eclipse" label="CodeNarc">
