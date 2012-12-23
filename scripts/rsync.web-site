@@ -1,6 +1,7 @@
 rsync \
 -a \
 -v \
+--compress \
 --delete \
 --progress \
 -e ssh \
