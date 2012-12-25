@@ -64,7 +64,7 @@ class CheckCodeJob extends Job {
         def ruleSet
         if (PreferenceAccessor.hasCustomRuleset(project)) {
             def fileListAsString = PreferenceAccessor.getOverlayedPreferenceValue(project, PreferenceConstants.RULESET_FILES)
-            def paths = fileListAsString.split(File.pathSeparator).collect{ 'file:' + it }
+            def paths = fileListAsString.split(File.pathSeparator).findAll{ it }.collect{ 'file:' + it }
             ruleSet = RuleSetProvider.createRuleSetFromFiles(paths)
         } else {
             ruleSet = RuleSetProvider.createDefaultRuleSet()
