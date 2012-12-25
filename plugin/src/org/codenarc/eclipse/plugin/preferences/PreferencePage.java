@@ -23,7 +23,7 @@ public class PreferencePage extends FieldEditorOverlayPage implements IWorkbench
 
     @Override
     public void createFieldEditors() {
-        useCustomRulesetButton = new BooleanFieldEditor(PreferenceConstants.USE_PROJECT_SETTINGS, "Use custom ruleset", getFieldEditorParent());
+        useCustomRulesetButton = new BooleanFieldEditor(PreferenceConstants.USE_CUSTOM_RULESET, "Use custom ruleset", getFieldEditorParent());
         rulesetFileListEditor = new FileListEditor(PreferenceConstants.RULESET_FILES, "", "Choose a ruleset file", getFieldEditorParent());
 
         addField(useCustomRulesetButton);
