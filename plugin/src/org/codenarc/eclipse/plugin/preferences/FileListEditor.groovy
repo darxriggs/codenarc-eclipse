@@ -24,7 +24,7 @@ class FileListEditor extends ListEditor {
     /**
      * Creates a new editor.
      */
-    protected FileListEditor() {}
+    protected FileListEditor() { }
 
     /**
      * Creates a new editor.

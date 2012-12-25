@@ -1,13 +1,9 @@
 package org.codenarc.eclipse
 
-import org.codenarc.eclipse.Logger
 import org.codenarc.ruleregistry.RuleRegistryInitializer
 import org.codenarc.ruleset.CompositeRuleSet
 import org.codenarc.ruleset.RuleSet
 import org.codenarc.ruleset.RuleSetUtil
-import org.eclipse.core.runtime.ILog
-import org.eclipse.core.runtime.IStatus
-import org.eclipse.core.runtime.Status
 
 /**
  * Provides all rulesets that are shipped with CodeNarc as a composite ruleset.

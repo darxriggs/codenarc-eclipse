@@ -3,9 +3,6 @@ package org.codenarc.eclipse.plugin.preferences
 import org.codenarc.eclipse.Activator
 import org.eclipse.core.resources.IResource
 import org.eclipse.core.runtime.QualifiedName
-import org.eclipse.jface.preference.IPreferenceStore
-
-import com.bdaum.overlayPages.FieldEditorOverlayPage
 
 class PreferenceAccessor {
 
@@ -18,7 +15,7 @@ class PreferenceAccessor {
         }
     }
 
-    public static boolean hasProjectSpecificSetting(IResource resource) {
+    static boolean hasProjectSpecificSetting(IResource resource) {
         def property = getProperty(resource, PreferenceConstants.USE_PROJECT_SETTINGS)
         property == 'true'
     }

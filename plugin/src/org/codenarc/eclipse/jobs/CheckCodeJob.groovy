@@ -2,7 +2,6 @@ package org.codenarc.eclipse.jobs
 
 import org.codehaus.jdt.groovy.model.GroovyCompilationUnit
 import org.codenarc.analyzer.StringSourceAnalyzer
-import org.codenarc.eclipse.Activator
 import org.codenarc.eclipse.CodeNarcMarker
 import org.codenarc.eclipse.Logger
 import org.codenarc.eclipse.RuleSetProvider
@@ -80,7 +79,7 @@ class CheckCodeJob extends Job {
     private void checkFiles(List<IFile> files, RuleSet ruleSet) {
         monitor.beginTask('Checking files', files.size())
         for (file in files) {
-            if (monitor.isCanceled()) return
+            if (monitor.isCanceled()) { return }
 
             monitor.subTask(file.name)
             checkFile(file, ruleSet)
@@ -122,7 +121,7 @@ class CheckCodeJob extends Job {
 
             def markerType = CodeNarcMarker.getMarkerTypeForPriority(rule.priority)
             def markerMessage = rule.name
-            if (violation.message) markerMessage += ": $violation.message"
+            if (violation.message) { markerMessage += ": $violation.message" }
 
             IMarker marker = file.createMarker(markerType)
             marker.setAttribute(IMarker.LINE_NUMBER, violation.lineNumber)

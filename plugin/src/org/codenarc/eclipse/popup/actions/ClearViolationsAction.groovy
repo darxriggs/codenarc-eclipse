@@ -27,5 +27,5 @@ class ClearViolationsAction implements IObjectActionDelegate {
     }
 
     @Override
-    void setActivePart(IAction action, IWorkbenchPart targetPart) {}
+    void setActivePart(IAction action, IWorkbenchPart targetPart) { }
 }

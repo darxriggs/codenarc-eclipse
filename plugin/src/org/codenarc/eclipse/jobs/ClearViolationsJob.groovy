@@ -1,13 +1,11 @@
 package org.codenarc.eclipse.jobs
 
-import org.codenarc.eclipse.Activator
 import org.codenarc.eclipse.CodeNarcMarker
 import org.codenarc.eclipse.Logger
 import org.codenarc.eclipse.SelectionUtils
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IResource
 import org.eclipse.core.runtime.CoreException
-import org.eclipse.core.runtime.ILog
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.IStatus
 import org.eclipse.core.runtime.Status
@@ -46,7 +44,7 @@ class ClearViolationsJob extends Job {
     private void deleteMarkersFromFiles(List<IFile> files) {
         monitor.beginTask('Deleting markers from files', files.size())
         for (file in files) {
-            if (monitor.isCanceled()) return
+            if (monitor.isCanceled()) { return }
 
             monitor.subTask(file.name)
             deleteMarkersFromFile(file)
