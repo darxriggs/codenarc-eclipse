@@ -13,8 +13,8 @@ public class PreferencePage extends FieldEditorOverlayPage implements IWorkbench
 
     public final static String PAGE_ID = "org.codenarc.eclipse.plugin.preferences.PreferencePage";
 
-    private BooleanFieldEditor disableButton;
-    private FileListEditor rulesetList;
+    private BooleanFieldEditor useCustomRulesetButton;
+    private FileListEditor rulesetFileListEditor;
 
     public PreferencePage() {
         super(GRID);
@@ -23,11 +23,11 @@ public class PreferencePage extends FieldEditorOverlayPage implements IWorkbench
 
     @Override
     public void createFieldEditors() {
-        disableButton = new BooleanFieldEditor(PreferenceConstants.USE_PROJECT_SETTINGS, "Use custom ruleset", getFieldEditorParent());
-        rulesetList = new FileListEditor(PreferenceConstants.RULESET_FILES, "", "Choose a ruleset file", getFieldEditorParent());
+        useCustomRulesetButton = new BooleanFieldEditor(PreferenceConstants.USE_PROJECT_SETTINGS, "Use custom ruleset", getFieldEditorParent());
+        rulesetFileListEditor = new FileListEditor(PreferenceConstants.RULESET_FILES, "", "Choose a ruleset file", getFieldEditorParent());
 
-        addField(disableButton);
-        addField(rulesetList);
+        addField(useCustomRulesetButton);
+        addField(rulesetFileListEditor);
     }
 
     public void init(IWorkbench workbench) {}
@@ -42,7 +42,7 @@ public class PreferencePage extends FieldEditorOverlayPage implements IWorkbench
         if (event.getProperty().equals(FieldEditor.VALUE)) {
             checkState();
 
-            if (event.getSource().equals(disableButton)) {
+            if (event.getSource().equals(useCustomRulesetButton)) {
                 propertyChangeDisableButton(event);
             }
         }
@@ -56,13 +56,13 @@ public class PreferencePage extends FieldEditorOverlayPage implements IWorkbench
     @Override
     protected void initialize() {
         super.initialize();
-        rulesetList.setEnabled(disableButton.getBooleanValue(), getFieldEditorParent());
+        rulesetFileListEditor.setEnabled(useCustomRulesetButton.getBooleanValue(), getFieldEditorParent());
     }
 
     private void propertyChangeDisableButton(PropertyChangeEvent event) {
         Object isButtonEnabled = event.getNewValue();
         if (isButtonEnabled instanceof Boolean) {
-            rulesetList.setEnabled((Boolean) isButtonEnabled, getFieldEditorParent());
+            rulesetFileListEditor.setEnabled((Boolean) isButtonEnabled, getFieldEditorParent());
         }
     }
 }
