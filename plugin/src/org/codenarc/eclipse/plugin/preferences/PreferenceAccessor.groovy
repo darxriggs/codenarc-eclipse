@@ -20,6 +20,11 @@ class PreferenceAccessor {
         property == 'true'
     }
 
+    static boolean hasCustomRuleset(IResource resource) {
+        def property = getProperty(resource, PreferenceConstants.USE_CUSTOM_RULESET)
+        property == 'true'
+    }
+
     private static String getProperty(IResource resource, String key) {
         def qualifiedName = new QualifiedName(PreferencePage.PAGE_ID, key)
         resource.getPersistentProperty(qualifiedName)
