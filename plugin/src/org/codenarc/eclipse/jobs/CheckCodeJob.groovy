@@ -1,12 +1,12 @@
 package org.codenarc.eclipse.jobs
 
-import org.codehaus.jdt.groovy.model.GroovyCompilationUnit
 import org.codenarc.analyzer.StringSourceAnalyzer
 import org.codenarc.eclipse.Activator
 import org.codenarc.eclipse.CodeNarcMarker
 import org.codenarc.eclipse.RuleSetProvider
 import org.codenarc.eclipse.SelectionUtils
 import org.codenarc.results.Results
+import org.codenarc.results.VirtualResults
 import org.codenarc.ruleset.RuleSet
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IMarker
@@ -17,7 +17,6 @@ import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.IStatus
 import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
-import org.eclipse.jdt.core.JavaCore
 import org.eclipse.jface.viewers.IStructuredSelection
 
 class CheckCodeJob extends Job {
@@ -74,7 +73,7 @@ class CheckCodeJob extends Job {
         try {
             file.deleteMarkers(CodeNarcMarker.SUPER_TYPE, true, IResource.DEPTH_INFINITE)
 
-            def results = analyzeSource(file, ruleSet)
+            def results = analyzeFile(file, ruleSet)
 
             createViolationMarkers(results, file)
         } catch (CoreException e) {
@@ -82,17 +81,25 @@ class CheckCodeJob extends Job {
         }
     }
 
-    private Results analyzeSource(IFile file, RuleSet ruleSet) {
-        GroovyCompilationUnit unit = (GroovyCompilationUnit) JavaCore.createCompilationUnitFrom(file)
-        String source = new String(unit.contents)
-
-        def analyzer = new StringSourceAnalyzer(source)
-
+    private Results analyzeFile(IFile file, RuleSet ruleSet) {
         def begin = System.currentTimeMillis()
-        def results = analyzer.analyze(ruleSet)
+        def results = analyzeSource(file.contents.text, ruleSet)
         def end = System.currentTimeMillis()
 
         log.log new Status(IStatus.INFO, Activator.PLUGIN_ID, "Analyzing $file.name took ${end - begin} ms")
+
+        results
+    }
+
+    private Results analyzeSource(String source, RuleSet ruleSet) {
+        def results
+
+        if (source) {
+            def analyzer = new StringSourceAnalyzer(source)
+            results = analyzer.analyze(ruleSet)
+        } else {
+            results = new VirtualResults([])
+        }
 
         results
     }
