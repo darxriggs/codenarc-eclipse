@@ -2,7 +2,7 @@
 <feature
       id="org.codenarc.eclipse.feature"
       label="CodeNarc"
-      version="0.18.0.qualifier"
+      version="0.18.1.qualifier"
       plugin="org.codenarc.eclipse.plugin">
 
    <description url="http://codenarceclipse.sourceforge.net/">
