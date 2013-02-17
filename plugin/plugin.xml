@@ -3,6 +3,20 @@
 <plugin>
 
    <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.codenarc.eclipse.preferences.CodeNarcPreferencePage"
+            id="org.codenarc.eclipse.preferences.CodeNarcPreferencePage"
+            name="CodeNarc">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.codenarc.eclipse.preferences.CodeNarcPreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             adaptable="true"
@@ -23,6 +37,19 @@
                icon="icons/codenarc_16x16.png"
                id="org.codenarc.eclipse.file.CheckCodeAction"
                label="Check code with CodeNarc"
+               menubarPath="groovyfile/codenarc">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.codenarc.eclipse.contribution.file"
+            nameFilter="*.xml"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.codenarc.eclipse.popup.actions.SetConfigFileAction"
+               enablesFor="1"
+               id="org.codenarc.eclipse.file.SetConfigFileAction"
+               label="Use this file as CodeNarc ruleset config"
                menubarPath="groovyfile/codenarc">
          </action>
       </objectContribution>
