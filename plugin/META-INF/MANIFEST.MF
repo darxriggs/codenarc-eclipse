@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: CodeNarc
 Bundle-SymbolicName: org.codenarc.eclipse.plugin;singleton:=true
-Bundle-Version: 0.18.1.qualifier
+Bundle-Version: 0.18.2.qualifier
 Bundle-Activator: org.codenarc.eclipse.Activator
 Require-Bundle: org.eclipse.ui;bundle-version="3.5.0",
  org.eclipse.ui.editors;bundle-version="3.5.0",
