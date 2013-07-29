@@ -16,6 +16,39 @@
             class="org.codenarc.eclipse.preferences.CodeNarcPreferenceInitializer">
       </initializer>
    </extension>
+   <extension point="org.eclipse.ui.viewActions">
+       <viewContribution id="org.codenarc.eclipse.contribution.view" targetID="org.eclipse.ui.views.ProblemView">
+           <menu 
+                   id="org.codenarc.eclipse.codeNarcMenu"
+                   label="CodeNarc" 
+                   path="additions"> 
+                   <separator name="group1"/> 
+           </menu>
+           <action
+                 class="org.codenarc.eclipse.popup.actions.CheckCodeAction"
+                 icon="icons/codenarc_16x16.png"
+                 id="org.codenarc.eclipse.contribution.view.CheckCodeAction"
+                 label="Check code with CodeNarc"
+                 style="pulldown"
+                 toolbarPath="Normal/additions"
+                 tooltip="Check code with CodeNarc">
+              <selection
+                    class="org.eclipse.core.resources.IFile"
+                    name="*.groovy">
+              </selection>
+           </action> 
+           <action
+                 class="org.codenarc.eclipse.popup.actions.ClearViolationsAction"
+                 icon="platform:/plugin/org.eclipse.ui/icons/full/etool16/delete_edit.gif"
+                 id="org.codenarc.eclipse.contribution.view.ClearViolationsAction"
+                 label="Clear CodeNarc violations"
+                 style="pulldown"
+                 toolbarPath="Normal/additions"
+                 tooltip="Clear CodeNarc violations">
+                   <selection class="org.eclipse.core.resources.IFile" name="*.groovy"/>
+           </action>
+       </viewContribution>
+    </extension>
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -187,6 +220,28 @@
             verticalRulerPreferenceKey="org.codenarc.eclipse.annotation3.verticalRuler"
             verticalRulerPreferenceValue="true">
       </specification>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.codenarc.eclipse.CodeNarcActionSet"
+            label="CodeNarc"
+            visible="true">
+         <action
+               class="org.codenarc.eclipse.popup.actions.CheckCodeAction"
+               icon="icons/codenarc_16x16.png"
+               id="org.codenarc.eclipse.toolbar.file.CheckCodeAction"
+               label="Check code with CodeNarc"
+               toolbarPath="CodeNarc/checkCode">
+         </action>            
+         <action
+               class="org.codenarc.eclipse.popup.actions.ClearViolationsAction"
+               icon="platform:/plugin/org.eclipse.ui/icons/full/etool16/delete_edit.gif"
+               id="org.codenarc.eclipse.toolbar.ClearViolationsAction"
+               label="Clear CodeNarc violations"
+               toolbarPath="CodeNarc/clearViolations">
+         </action>
+      </actionSet>
    </extension>
 
 </plugin>

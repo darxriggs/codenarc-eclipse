@@ -4,15 +4,27 @@ import org.eclipse.core.resources.IContainer
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IResource
 import org.eclipse.jface.viewers.IStructuredSelection
+import org.eclipse.ui.IWorkbench
+import org.eclipse.ui.PlatformUI
+
 
 class SelectionUtils {
 
     private static final GROOVY_FILE_EXTENSION = 'groovy'
     private static final XML_FILE_EXTENSION = 'xml'
     private static final GRAILS_LINKED_RESOURCES_NAME = '.link_to_grails_plugins'
+    
+    static IFile getCurrentFile() {
+        IWorkbench workbench = PlatformUI.getWorkbench();
+        workbench.getWorkbenchWindows()[0].getActivePage().getActiveEditor().getEditorInput().getAdapter(IFile.class)
+    }
 
     static List<IFile> getGroovyFiles(IStructuredSelection selection) {
+        if(selection == null || selection.isEmpty()) {
+            return [] << getCurrentFile()
+        }
         def files = []
+        
         addFileResources(selection.toList(), files)
 
         files

@@ -8,6 +8,9 @@ import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.ui.IObjectActionDelegate
 import org.eclipse.ui.IWorkbenchPart
 
+/**
+ * @author Csaba Sulyok
+ */
 class SetConfigFileAction implements IObjectActionDelegate {
 
     private IStructuredSelection selection

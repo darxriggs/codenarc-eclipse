@@ -6,9 +6,16 @@ import org.eclipse.jface.action.IAction
 import org.eclipse.jface.viewers.ISelection
 import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.ui.IObjectActionDelegate
+import org.eclipse.ui.IViewActionDelegate
+import org.eclipse.ui.IViewPart
 import org.eclipse.ui.IWorkbenchPart
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.IWorkbenchWindowActionDelegate
 
-class CheckCodeAction implements IObjectActionDelegate {
+/**
+ * @author René Scheibe
+ */
+class CheckCodeAction implements IObjectActionDelegate, IViewActionDelegate, IWorkbenchWindowActionDelegate {
 
     private IStructuredSelection selection
 
@@ -28,4 +35,16 @@ class CheckCodeAction implements IObjectActionDelegate {
 
     @Override
     void setActivePart(IAction action, IWorkbenchPart targetPart) {}
+
+    @Override
+    public void init(IViewPart view) {
+    }
+
+    @Override
+    public void init(IWorkbenchWindow window) {
+    }
+    
+    @Override
+    public void dispose() {
+    }
 }

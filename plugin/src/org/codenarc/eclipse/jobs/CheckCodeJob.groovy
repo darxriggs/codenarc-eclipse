@@ -19,6 +19,9 @@ import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.viewers.IStructuredSelection
 
+/**
+ * @author René Scheibe
+ */
 class CheckCodeJob extends Job {
 
     private static final ILog log = Activator.default.log
