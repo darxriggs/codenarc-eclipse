@@ -16,8 +16,13 @@ import org.eclipse.jface.preference.IPreferenceStore
 class RuleSetProvider {
 
     private static final ILog log = Activator.getDefault().getLog()
+    
+    private static final String DEFAULT_RULESET_PATH = "classpath:org/codenarc/eclipse/rulesets/defaultRuleSet.xml"
 
-    private static final DEFAULT_RULESETS = [
+    /**
+     * Do not uses by default
+     */
+    private static final FULL_RULESETS = [
         'basic',
         'braces',
         'concurrency',
@@ -39,11 +44,16 @@ class RuleSetProvider {
         'size',
         'unnecessary',
         'unused']
+    
+    private static default_ruleset;
+    
+    static RuleSet createFullRuleSet() {
+        def paths = FULL_RULESETS.collect{ ruleSet -> "rulesets/${ruleSet}.xml" }
+        createRuleSetFromFiles(paths)
+    }
 
     static RuleSet createDefaultRuleSet() {
-        def paths = DEFAULT_RULESETS.collect{ ruleSet -> "rulesets/${ruleSet}.xml" }
-
-        createRuleSetFromFiles(paths)
+        createRuleSetFromFiles([] << DEFAULT_RULESET_PATH)
     }
 
     static File retrieveRuleSetFileFromPreferences() {
@@ -61,7 +71,10 @@ class RuleSetProvider {
     static RuleSet createRuleSet() {
         File configFile = retrieveRuleSetFileFromPreferences()
         if (!configFile) {
-            return createDefaultRuleSet()
+            if(!default_ruleset) {
+                default_ruleset = createDefaultRuleSet()
+            }
+            return default_ruleset
         }
 
         CompositeRuleSet overallRuleSet = new CompositeRuleSet()
@@ -81,6 +94,7 @@ class RuleSetProvider {
                 def ruleSet = RuleSetUtil.loadRuleSetFile(path)
                 overallRuleSet.addRuleSet(ruleSet)
             } catch (e) {
+                log.log new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Error loading ruleset ${path}", e)
                 invalidFiles << path
             }
         }
