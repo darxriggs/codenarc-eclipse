@@ -2,6 +2,74 @@
 <?eclipse version="3.4"?>
 <plugin>
 
+    <extension
+          point="org.eclipse.ui.commands">
+        <command
+            id="org.codenarc.eclipse.commands.CheckCodeCommand"
+            name="Check code with CodeNarc">
+        </command>
+        <command
+            id="org.codenarc.eclipse.commands.ClearViolationsCommand"
+            name="Clear CodeNarc violations">
+        </command>
+    </extension>
+
+    <extension
+          point="org.eclipse.ui.handlers">
+        <handler 
+             class="org.codenarc.eclipse.commands.CheckCodeHandler" 
+             commandId="org.codenarc.eclipse.commands.CheckCodeCommand"> 
+        </handler>    
+        <handler 
+             class="org.codenarc.eclipse.commands.ClearViolationsHandler" 
+             commandId="org.codenarc.eclipse.commands.ClearViolationsCommand"> 
+        </handler> 
+    </extension>
+    
+    <extension
+          point="org.eclipse.ui.commandImages">
+        <image 
+             commandId="org.codenarc.eclipse.commands.CheckCodeCommand" 
+             icon="icons/codenarc_16x16.png"> 
+        </image> 
+        <image 
+             commandId="org.codenarc.eclipse.commands.ClearViolationsCommand" 
+             icon="platform:/plugin/org.eclipse.ui/icons/full/etool16/delete_edit.gif"> 
+        </image> 
+    </extension>
+    
+    <extension
+          point="org.eclipse.ui.menus">
+        <menuContribution 
+             locationURI="toolbar:org.eclipse.ui.main.toolbar"> 
+            <toolbar
+                  id="org.codenarc.eclipse.toolbar.CodeNarcToolbar"
+                  label="CodeNarc"> 
+                <command 
+                    commandId="org.codenarc.eclipse.commands.CheckCodeCommand" 
+                    id="org.codenarc.eclipse.toolbar.CheckCodeCommand"> 
+                </command>
+                <command 
+                    commandId="org.codenarc.eclipse.commands.ClearViolationsCommand" 
+                    id="org.codenarc.eclipse.toolbar.ClearViolationsCommand"> 
+                </command>  
+           </toolbar> 
+        </menuContribution>    
+    </extension>
+    
+    <extension 
+         point="org.eclipse.ui.bindings">
+        <key sequence="Ctrl+Alt+O"
+            commandId="org.codenarc.eclipse.commands.CheckCodeCommand"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            contextId="org.codehaus.groovy.eclipse.editor.groovyEditorScope"/>
+        <key sequence="Ctrl+Alt+K"
+            commandId="org.codenarc.eclipse.commands.ClearViolationsCommand"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            contextId="org.codehaus.groovy.eclipse.editor.groovyEditorScope"/>
+    </extension>
+    
+   
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
@@ -221,27 +289,10 @@
             verticalRulerPreferenceValue="true">
       </specification>
    </extension>
-   <extension
-         point="org.eclipse.ui.actionSets">
-      <actionSet
-            id="org.codenarc.eclipse.CodeNarcActionSet"
-            label="CodeNarc"
-            visible="true">
-         <action
-               class="org.codenarc.eclipse.popup.actions.CheckCodeAction"
-               icon="icons/codenarc_16x16.png"
-               id="org.codenarc.eclipse.toolbar.file.CheckCodeAction"
-               label="Check code with CodeNarc"
-               toolbarPath="CodeNarc/checkCode">
-         </action>            
-         <action
-               class="org.codenarc.eclipse.popup.actions.ClearViolationsAction"
-               icon="platform:/plugin/org.eclipse.ui/icons/full/etool16/delete_edit.gif"
-               id="org.codenarc.eclipse.toolbar.ClearViolationsAction"
-               label="Clear CodeNarc violations"
-               toolbarPath="CodeNarc/clearViolations">
-         </action>
-      </actionSet>
-   </extension>
-
+   
+   <!--<extension point="org.eclipse.ui.handlers">
+       <handler commandId="org.eclipse.ui.file.save"
+           class="org.codenarc.eclipse.autocheck.Autochecker">
+       </handler>
+   </extension>-->
 </plugin>
