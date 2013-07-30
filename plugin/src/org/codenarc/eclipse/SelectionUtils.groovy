@@ -19,7 +19,10 @@ class SelectionUtils {
         workbench.getWorkbenchWindows()[0].getActivePage().getActiveEditor().getEditorInput().getAdapter(IFile.class)
     }
 
-    static List<IFile> getGroovyFiles(IStructuredSelection selection) {
+    static List<IFile> getGroovyFiles(IStructuredSelection strSelection) {
+        def selection = strSelection.findAll { 
+            it instanceof IResource
+        }
         if(selection == null || selection.isEmpty()) {
             return [] << getCurrentFile()
         }
@@ -29,7 +32,7 @@ class SelectionUtils {
 
         files
     }
-
+    
     static IFile getSingleGroovyFile(IStructuredSelection selection) {
         def files = []
         addFileResources(selection.toList(), files, XML_FILE_EXTENSION)
