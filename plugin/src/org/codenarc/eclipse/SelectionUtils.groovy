@@ -1,8 +1,11 @@
 package org.codenarc.eclipse
 
+import org.codehaus.jdt.groovy.model.GroovyCompilationUnit;
 import org.eclipse.core.resources.IContainer
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IResource
+import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.core.runtime.Path
 import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.PlatformUI
@@ -20,8 +23,12 @@ class SelectionUtils {
     }
 
     static List<IFile> getGroovyFiles(IStructuredSelection strSelection) {
-        def selection = strSelection.findAll { 
-            it instanceof IResource
+        def selection = []
+        strSelection.each {
+            if(it instanceof IResource)
+                selection << it
+            else if(it instanceof GroovyCompilationUnit)
+                selection << getFile(((GroovyCompilationUnit)it).getPath())
         }
         if(selection == null || selection.isEmpty()) {
             return [] << getCurrentFile()
@@ -33,7 +40,12 @@ class SelectionUtils {
         files
     }
     
-    static IFile getSingleGroovyFile(IStructuredSelection selection) {
+    private static IFile getFile(Path path) {
+        return ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+    }
+
+    
+    static IFile getSingleXmlFile(IStructuredSelection selection) {
         def files = []
         addFileResources(selection.toList(), files, XML_FILE_EXTENSION)
         assert files.size() == 1

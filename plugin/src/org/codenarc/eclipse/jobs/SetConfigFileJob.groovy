@@ -32,7 +32,7 @@ class SetConfigFileJob extends Job {
         this.monitor = monitor
 
         monitor.beginTask('Setting current CodeNarc config file', 1)
-        changeConfigFile(SelectionUtils.getSingleGroovyFile(selection))
+        changeConfigFile(SelectionUtils.getSingleXmlFile(selection))
         monitor.worked(1)
         monitor.done()
 
