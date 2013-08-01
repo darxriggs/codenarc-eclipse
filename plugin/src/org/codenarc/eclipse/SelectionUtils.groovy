@@ -40,11 +40,6 @@ class SelectionUtils {
         files
     }
     
-    private static IFile getFile(Path path) {
-        return ResourcesPlugin.getWorkspace().getRoot().getFile(path);
-    }
-
-    
     static IFile getSingleXmlFile(IStructuredSelection selection) {
         def files = []
         addFileResources(selection.toList(), files, XML_FILE_EXTENSION)
@@ -68,5 +63,9 @@ class SelectionUtils {
                 addFileResources(container.members(), files)
             }
         }
+    }
+    
+    private static IFile getFile(Path path) {
+        return ResourcesPlugin.getWorkspace().getRoot().getFile(path);
     }
 }

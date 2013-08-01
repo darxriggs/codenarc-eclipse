@@ -10,7 +10,7 @@ class ClearViolationsHandler extends EmptyHandler {
     
     @Override
     protected void handle(ExecutionEvent event) {
-        ISelection selection = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().getSelection();
+        ISelection selection = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().getSelection()
         def job = new ClearViolationsJob(selection)
         job.priority = Job.INTERACTIVE
         job.schedule()
