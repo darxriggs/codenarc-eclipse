@@ -12,12 +12,14 @@ import org.eclipse.jface.preference.IPreferenceStore
 
 /**
  * Provides all rulesets that are shipped with CodeNarc as a composite ruleset.
+ * 
+ * @author René Scheibe
  */
 class RuleSetProvider {
 
     private static final ILog log = Activator.getDefault().getLog()
     
-    private static final String DEFAULT_RULESET_PATH = "classpath:org/codenarc/eclipse/rulesets/defaultRuleSet.xml"
+    private static final String DEFAULT_RULESET_PATH = 'classpath:org/codenarc/eclipse/rulesets/defaultRuleSet.xml'
 
     /**
      * Do not uses by default
@@ -45,7 +47,7 @@ class RuleSetProvider {
         'unnecessary',
         'unused']
     
-    private static default_ruleset;
+    private static default_ruleset
     
     static RuleSet createFullRuleSet() {
         def paths = FULL_RULESETS.collect{ ruleSet -> "rulesets/${ruleSet}.xml" }

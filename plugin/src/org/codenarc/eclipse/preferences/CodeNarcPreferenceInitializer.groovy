@@ -6,11 +6,10 @@ import org.codenarc.eclipse.Activator
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer
 import org.eclipse.jface.preference.IPreferenceStore
 
+/**
+ * @author <a href="mailto:csaba.sulyok@gmail.com">Csaba Sulyok</a>
+ */
 class CodeNarcPreferenceInitializer extends AbstractPreferenceInitializer {
-
-    CodeNarcPreferenceInitializer() {
-        super()
-    }
 
     @Override
     void initializeDefaultPreferences() {

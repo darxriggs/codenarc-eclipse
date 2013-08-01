@@ -1,5 +1,8 @@
 package org.codenarc.eclipse.preferences
 
+/**
+ * @author <a href="mailto:csaba.sulyok@gmail.com">Csaba Sulyok</a>
+ */
 class CodeNarcPreferenceConstants {
 
     public static final String P_CONFIG_PATH = 'org.codenarc.eclipse.configFilePath'
