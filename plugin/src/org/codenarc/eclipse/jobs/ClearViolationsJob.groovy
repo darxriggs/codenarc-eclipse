@@ -13,6 +13,9 @@ import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.viewers.IStructuredSelection
 
+/**
+ * @author René Scheibe
+ */
 class ClearViolationsJob extends Job {
 
     private static final ILog log = Activator.default.log
@@ -38,7 +41,6 @@ class ClearViolationsJob extends Job {
         monitor.beginTask('Selecting files', 1)
         def files = SelectionUtils.getGroovyFiles(selection)
         monitor.worked(1)
-
         files
     }
 
