@@ -1,0 +1,44 @@
+1. default CodeNarc ruleset
+a)
+Workspace:
+- "Use custom ruleset" disabled
+Project:
+- "Use custom ruleset" disabled
+
+b)
+Workspace:
+- "Use custom ruleset" enabled
+- no ruleset file configured
+Project:
+- "Use custom ruleset" disabled
+
+c)
+Workspace:
+- "Use custom ruleset" disabled
+Project:
+- "Use custom ruleset" enabled
+- no ruleset file configured
+
+2. Workspace-specific ruleset
+a)
+Workspace:
+- "Use custom ruleset" enabled
+Project:
+- "Use custom ruleset" disabled
+
+3. Project-specific ruleset
+a)
+Workspace:
+- "Use custom ruleset" disabled
+Project:
+- "Use custom ruleset" enabled
+
+b)
+Workspace:
+- "Use custom ruleset" enabled
+Project:
+- "Use custom ruleset" enabled
+
+4. empty file (see issue #3)
+
+5. linked Grails plugin sources (see issue #3)
