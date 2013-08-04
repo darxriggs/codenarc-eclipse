@@ -1,0 +1,19 @@
++++ Howto Release +++
+
+* release & snapshot version
+  * scripts/rsync.update-site.release
+  * scripts/rsync.update-site.snapshot
+* install plugin
+* test plugin
+* check artifacts.xml & contents.xml
+* update web-site (version, release date, changelog)
+  * scripts/rsync.web-site
+* set release tag
+* sync repos, update sites, web site
+  * git push --all github      && git push --tags github
+  * git push --all sourceforge && git push --tags sourceforge
+* announce on
+  * Twitter
+  * user@groovy.codehaus.org (mailing list)
+  * Eclipse Marketplace
+  * link @ http://groovy.dzone.com

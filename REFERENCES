@@ -1,0 +1,25 @@
++++ building the plugin +++
+http://www.vogella.de/articles/EclipsePDEBuild/article.html
+
++++ Markers +++
+http://help.eclipse.org/help32/topic/org.eclipse.platform.doc.isv/reference/api/org/eclipse/core/resources/IMarker.html
+http://www.eclipse.org/articles/Article-Mark%20My%20Words/mark-my-words.html
+http://cubussapiens.hu/2010/11/markers-and-annotations-in-eclipse-for-error-feedback/
+
++++ Findbugs Eclipse plugin +++
+FindBugsAction -> find bugs on the selected in the package explorer
+ResourceChangeListener -> markes have to be updated when file is changed
+FindBugsWorker -> adds/removes markers for files
+FindbugsSaveParticipant -> handle save events
+MarkerUtil -> convert FindBugs bugs to Eclipse markers
+
++++ About dialog +++
+http://www.ibm.com/developerworks/opensource/library/os-ecfeat/
+http://help.eclipse.org/indigo/topic/org.eclipse.platform.doc.isv/guide/product_configproduct.htm
+http://help.eclipse.org/indigo/topic/org.eclipse.platform.doc.isv/reference/misc/about_customization.html
+
++++ sourceforge +++
+http://www.eclipse.org/articles/Article-Plugging-into-SourceForge/sourceforge.html
+http://elmuerte.blogspot.com/2009/08/eclipse-update-site-on-sourceforge.html
+https://sourceforge.net/apps/trac/sourceforge/wiki/SCP (Web-Site)
+https://sourceforge.net/projects/codenarceclipse/files/eclipse/snapshot/ (the RSS link contains the project id :-))

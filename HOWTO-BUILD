@@ -1,0 +1,28 @@
++++ Howto Build +++
+
+Always build the plugin with Groovy 1.7. Otherwise BytecodeInterface8 from Groovy 1.8 is not found when running the plugin.
+
+* use CodeNarc-Update-Site (Release or Snapshot) project
+* open site.xml with "Site Manifest" editor
+* select "org.codenarc.eclipse"
+* press "Build All" button
+
++++ Howto Test +++
+
+* install release jars
+* project
+  * run check
+  * clear markers
+* files
+  * run single file check
+  * run multi-selection check
+  * clear markers
+* Eclipse and Groovy
+  * Eclipse 3.5
+    * Groovy 1.7
+  * Eclipse 3.6
+    * Groovy 1.7
+    * Groovy 1.8
+  * Eclipse 3.7
+    * Groovy 1.7
+    * Groovy 1.8

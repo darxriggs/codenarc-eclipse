@@ -1,0 +1,22 @@
++++ TODO +++
+
+* disable file list editor if "Use custom ruleset" is disabled when opening page
+* handle non-existing files
+* make path of workspace/project-specific ruleset files relative to the workspace/ruleset
+** see "CodeNarc-Plugin" -> Run As -> Run Configurations... -> Eclipse Application -> Main -> Location: ${workspace_loc}/...
+* filter duplicate files
+
+
+* project builder
+  * ensures that codenarc is notified whenever there is a file change and can then incrementally update files with new codenarc markers
+  * may be annoying if codenarc is very slow
+* objectcontribution filter says *.groovy
+  * this means that *.dsld, *.gradle, *.easyb, etc files cannot be sent to codenarc
+  * perhaps push that check into the action itself and compare against the file's content type
+* creating the markers on a file
+  * make sure to grab a lock on that file
+* scheduling rules
+  * org.eclipse.core.internal.jobs.JobManager.beginRule(ISchedulingRule, IProgressMonitor)
+  * org.eclipse.core.internal.jobs.JobManager.endRule(ISchedulingRule)
+* as suggested by Andrew: let him include codenarc-eclipse in the composite update site that also includes groovy-eclipse
+  * result: reach more people

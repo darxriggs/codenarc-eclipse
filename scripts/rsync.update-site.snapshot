@@ -1,6 +1,7 @@
 rsync \
 -a \
 -v \
+--checksum \
 --compress \
 --delete \
 --progress \
