@@ -19,6 +19,9 @@ import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.viewers.IStructuredSelection
 
+/**
+ * @author René Scheibe
+ */
 class CheckCodeJob extends Job {
 
     private static final ILog log = Activator.default.log
@@ -51,7 +54,7 @@ class CheckCodeJob extends Job {
 
     private RuleSet createRuleSet() {
         monitor.beginTask('Loading rulesets', 10)
-        def ruleSet = RuleSetProvider.createDefaultRuleSet()
+        def ruleSet = RuleSetProvider.createRuleSet()
         monitor.worked(10)
 
         ruleSet

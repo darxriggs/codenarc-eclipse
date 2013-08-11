@@ -6,13 +6,15 @@ import org.osgi.framework.BundleContext
 
 /**
  * Controls the plug-in life cycle.
+ * 
+ * @author René Scheibe
  */
 class Activator extends AbstractUIPlugin {
 
     static final String PLUGIN_ID = 'CodeNarc'
 
     // The shared instance
-    private static Activator plugin
+    static Activator plugin
 
     void start(BundleContext context) throws Exception {
         super.start(context)

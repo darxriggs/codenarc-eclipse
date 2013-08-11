@@ -2,58 +2,186 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            adaptable="true"
-            id="org.codenarc.eclipse.contribution.file"
-            nameFilter="*.groovy"
-            objectClass="org.eclipse.core.resources.IFile">
-         <action
-               class="org.codenarc.eclipse.popup.actions.ClearViolationsAction"
-               enablesFor="+"
-               icon="platform:/plugin/org.eclipse.ui/icons/full/etool16/delete_edit.gif"
-               id="org.codenarc.eclipse.file.ClearViolationsAction"
-               label="Clear CodeNarc violations"
-               menubarPath="groovyfile/codenarc">
-         </action>
-         <action
-               class="org.codenarc.eclipse.popup.actions.CheckCodeAction"
-               enablesFor="+"
-               icon="icons/codenarc_16x16.png"
-               id="org.codenarc.eclipse.file.CheckCodeAction"
-               label="Check code with CodeNarc"
-               menubarPath="groovyfile/codenarc">
-         </action>
-      </objectContribution>
-      <objectContribution
-            adaptable="true"
-            id="org.codenarc.eclipse.contribution.project"
-            objectClass="org.eclipse.core.resources.IProject">
-         <action
-               class="org.codenarc.eclipse.popup.actions.ClearViolationsAction"
-               enablesFor="1"
-               icon="platform:/plugin/org.eclipse.ui/icons/full/etool16/delete_edit.gif"
-               id="org.codenarc.eclipse.project.ClearViolationsAction"
-               label="Clear CodeNarc violations"
-               menubarPath="groovy/codenarc">
-         </action>
-         <action
-               class="org.codenarc.eclipse.popup.actions.CheckCodeAction"
-               enablesFor="1"
-               icon="icons/codenarc_16x16.png"
-               id="org.codenarc.eclipse.project.CheckCodeAction"
-               label="Check code with CodeNarc"
-               menubarPath="groovy/codenarc">
-         </action>
-         <visibility>
-            <objectState
-                  name="nature"
-                  value="org.eclipse.jdt.groovy.core.groovyNature">
-            </objectState>
-         </visibility>
-      </objectContribution>
-   </extension>
+    <!-- Commands -->
+    <extension
+          point="org.eclipse.ui.commands">
+        <command
+            id="org.codenarc.eclipse.commands.CheckCodeCommand"
+            name="Check code with CodeNarc">
+        </command>
+        <command
+            id="org.codenarc.eclipse.commands.ClearViolationsCommand"
+            name="Clear CodeNarc violations">
+        </command>
+        <command
+            id="org.codenarc.eclipse.commands.SetConfigFileCommand"
+            name="Use this file as CodeNarc ruleset config">
+        </command>        
+    </extension>
+
+    <!-- Handlers -->
+    <extension
+          point="org.eclipse.ui.handlers">
+        <handler 
+             class="org.codenarc.eclipse.commands.CheckCodeHandler" 
+             commandId="org.codenarc.eclipse.commands.CheckCodeCommand"> 
+        </handler>    
+        <handler 
+             class="org.codenarc.eclipse.commands.ClearViolationsHandler" 
+             commandId="org.codenarc.eclipse.commands.ClearViolationsCommand"> 
+        </handler>
+        <handler 
+             class="org.codenarc.eclipse.commands.SetConfigFileHandler" 
+             commandId="org.codenarc.eclipse.commands.SetConfigFileCommand"> 
+        </handler>
+    </extension>
+    
+    <!-- Images -->
+    <extension
+          point="org.eclipse.ui.commandImages">
+        <image 
+             commandId="org.codenarc.eclipse.commands.CheckCodeCommand" 
+             icon="icons/codenarc_16x16.png"> 
+        </image> 
+        <image 
+             commandId="org.codenarc.eclipse.commands.ClearViolationsCommand" 
+             icon="platform:/plugin/org.eclipse.ui/icons/full/etool16/delete_edit.gif"> 
+        </image> 
+    </extension>
+    
+    <!-- Hotkeys -->
+    <extension 
+         point="org.eclipse.ui.bindings">
+        <key sequence="Ctrl+Alt+O"
+            commandId="org.codenarc.eclipse.commands.CheckCodeCommand"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            contextId="org.codehaus.groovy.eclipse.editor.groovyEditorScope"/>
+        <key sequence="Ctrl+Alt+K"
+            commandId="org.codenarc.eclipse.commands.ClearViolationsCommand"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            contextId="org.codehaus.groovy.eclipse.editor.groovyEditorScope"/>
+    </extension>
+    
+    <!-- Toolbars -->
+    <extension
+          point="org.eclipse.ui.menus">
+        
+        <!-- Main toolbar -->
+        <menuContribution 
+             locationURI="toolbar:org.eclipse.ui.main.toolbar"> 
+            <toolbar
+                  id="org.codenarc.eclipse.toolbar.CodeNarcToolbar"
+                  label="CodeNarc"> 
+                <command 
+                     commandId="org.codenarc.eclipse.commands.CheckCodeCommand" /> 
+                <command 
+                     commandId="org.codenarc.eclipse.commands.ClearViolationsCommand"/> 
+           </toolbar> 
+        </menuContribution>
+        
+        <!-- Problems View -->
+        <menuContribution 
+             locationURI="toolbar:org.eclipse.ui.views.ProblemView">
+            <command 
+                 commandId="org.codenarc.eclipse.commands.CheckCodeCommand" /> 
+            <command 
+                 commandId="org.codenarc.eclipse.commands.ClearViolationsCommand" /> 
+        </menuContribution>    
+        
+        <!-- File menu -->
+        <menuContribution
+             locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu">
+            <menu
+                 id="groovyfile"
+                 label="Groovy">
+            </menu>
+        </menuContribution>
+        <menuContribution
+             locationURI="popup:groovyfile">
+            <command
+                  commandId="org.codenarc.eclipse.commands.CheckCodeCommand">
+                 <visibleWhen>
+                     <iterate operator="and" ifEmpty="false">
+                         <adapt type="org.eclipse.core.resources.IResource">
+                             <test property="org.eclipse.core.resources.name" value="*.groovy"/>       
+                         </adapt>                           
+                     </iterate>
+                 </visibleWhen>
+            </command>
+            <command
+                  commandId="org.codenarc.eclipse.commands.ClearViolationsCommand">
+                 <visibleWhen>
+                     <iterate operator="and" ifEmpty="false">
+                         <adapt type="org.eclipse.core.resources.IResource">
+                             <test property="org.eclipse.core.resources.name" value="*.groovy"/>       
+                         </adapt>                           
+                     </iterate>
+                 </visibleWhen>
+            </command>
+            <command
+                  commandId="org.codenarc.eclipse.commands.SetConfigFileCommand">
+                 <visibleWhen>
+                     <iterate operator="and" ifEmpty="false">
+                         <adapt type="org.eclipse.core.resources.IResource">
+                             <test property="org.eclipse.core.resources.name" value="*.xml"/>       
+                         </adapt>                           
+                     </iterate>
+                 </visibleWhen>
+            </command>             
+        </menuContribution>
+        
+        <!-- Project menu -->
+        <menuContribution
+             locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu">
+            <menu
+                 id="groovy"
+                 label="Groovy">
+            </menu>
+        </menuContribution>
+        <menuContribution
+             locationURI="popup:groovy">
+            <command
+                  commandId="org.codenarc.eclipse.commands.CheckCodeCommand">
+                 <visibleWhen>
+                     <iterate operator="and" ifEmpty="false">
+                         <adapt type="org.eclipse.core.resources.IProject">
+                             <test property="org.eclipse.core.resources.projectNature" 
+                                   value="org.eclipse.jdt.groovy.core.groovyNature"/>       
+                         </adapt>                           
+                     </iterate>
+                 </visibleWhen>
+            </command>
+            <command
+                  commandId="org.codenarc.eclipse.commands.ClearViolationsCommand">
+                 <visibleWhen>
+                     <iterate operator="and" ifEmpty="false">
+                         <adapt type="org.eclipse.core.resources.IProject">
+                             <test property="org.eclipse.core.resources.projectNature" 
+                                   value="org.eclipse.jdt.groovy.core.groovyNature"/>       
+                         </adapt>                           
+                     </iterate>
+                 </visibleWhen>
+            </command>
+        </menuContribution>
+    </extension>
+    
+    <!-- Preferenses -->   
+    <extension
+         point="org.eclipse.ui.preferencePages">
+       <page
+            class="org.codenarc.eclipse.preferences.CodeNarcPreferencePage"
+            id="org.codenarc.eclipse.preferences.CodeNarcPreferencePage"
+            name="CodeNarc">
+       </page>
+    </extension>
+    <extension
+         point="org.eclipse.core.runtime.preferences">
+       <initializer
+            class="org.codenarc.eclipse.preferences.CodeNarcPreferenceInitializer">
+       </initializer>
+    </extension> 
+  
+  <!-- Markers -->
    <extension
          id="org.codenarc.eclipse.marker.violation"
          name="CodeNarc Violation"
@@ -64,7 +192,7 @@
       <super
             type="org.eclipse.core.resources.problemmarker">
       </super>
-   </extension>
+   </extension>  
    <extension
          id="org.codenarc.eclipse.marker.violation.priority1"
          name="CodeNarc Violation (Priority 1)"
@@ -161,5 +289,4 @@
             verticalRulerPreferenceValue="true">
       </specification>
    </extension>
-
 </plugin>
