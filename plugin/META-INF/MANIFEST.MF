@@ -27,5 +27,5 @@ Export-Package: org.codenarc.eclipse;
    org.eclipse.ui.plugin,
    org.eclipse.jface.viewers,
    org.osgi.framework",
- org.codenarc.eclipse.jobs;uses:="org.eclipse.core.runtime,org.eclipse.core.runtime.jobs,org.eclipse.jface.viewers",
- org.codenarc.eclipse.popup.actions;uses:="org.eclipse.jface.action,org.eclipse.ui,org.eclipse.jface.viewers"
+ org.codenarc.eclipse.commands;uses:="org.eclipse.core.commands",
+ org.codenarc.eclipse.jobs;uses:="org.eclipse.core.runtime.jobs,org.eclipse.core.runtime,org.eclipse.jface.viewers"

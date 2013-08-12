@@ -3,8 +3,7 @@ package tests
 import org.codenarc.eclipse.CodeNarcMarker
 import org.codenarc.eclipse.jobs.CheckCodeJob
 import org.codenarc.eclipse.jobs.ClearViolationsJob
-import org.codenarc.eclipse.popup.actions.CheckCodeAction
-import org.codenarc.eclipse.popup.actions.ClearViolationsAction
+import org.eclipse.core.commands.ExecutionEvent
 import org.eclipse.core.resources.IResource
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.viewers.StructuredSelection
@@ -12,17 +11,19 @@ import org.junit.Test
 
 import test.EclipseTestCase
 
-class ActionTest extends EclipseTestCase {
+class JobTest extends EclipseTestCase {
 
     @Test void 'check violation on single file'() {
         def file = createClassWithViolation('Class1')
 
         // Check for violations
-        runActionOnResources(CheckCodeAction, file)
-        assert findCodeNarcMarkers() == [expectedMarkerForClass('Class1')]
+        runJobOnResources(CheckCodeJob, file)
+        assert findCodeNarcMarkers() == [
+            expectedMarkerForClass('Class1')
+        ]
 
         // Clear violation markers
-        runActionOnResources(ClearViolationsAction, file)
+        runJobOnResources(ClearViolationsJob, file)
         assert findCodeNarcMarkers() == []
     }
 
@@ -31,15 +32,20 @@ class ActionTest extends EclipseTestCase {
         def file2 = createClassWithViolation('Class2')
 
         // Check for violations on both files
-        runActionOnResources(CheckCodeAction, file1, file2)
-        assert findCodeNarcMarkers() == [expectedMarkerForClass('Class1'), expectedMarkerForClass('Class2')]
+        runJobOnResources(CheckCodeJob, file1, file2)
+        assert findCodeNarcMarkers() == [
+            expectedMarkerForClass('Class1'),
+            expectedMarkerForClass('Class2')
+        ]
 
         // Clear violation markers for one of the both files
-        runActionOnResources(ClearViolationsAction, file1)
-        assert findCodeNarcMarkers() == [expectedMarkerForClass('Class2')]
+        runJobOnResources(ClearViolationsJob, file1)
+        assert findCodeNarcMarkers() == [
+            expectedMarkerForClass('Class2')
+        ]
 
         // Clear violation markers for the other file
-        runActionOnResources(ClearViolationsAction, file2)
+        runJobOnResources(ClearViolationsJob, file2)
         assert findCodeNarcMarkers() == []
     }
 
@@ -48,24 +54,29 @@ class ActionTest extends EclipseTestCase {
         def file2 = createClassWithViolation('Class2')
 
         // Check for violations on both files
-        runActionOnResources(CheckCodeAction, testProject.project)
-        assert findCodeNarcMarkers() == [expectedMarkerForClass('Class1'), expectedMarkerForClass('Class2')]
+        runJobOnResources(CheckCodeJob, testProject.project)
+        assert findCodeNarcMarkers() == [
+            expectedMarkerForClass('Class1'),
+            expectedMarkerForClass('Class2')
+        ]
 
         // Clear violation markers for one of the both files
-        runActionOnResources(ClearViolationsAction, file1)
-        assert findCodeNarcMarkers() == [expectedMarkerForClass('Class2')]
+        runJobOnResources(ClearViolationsJob, file1)
+        assert findCodeNarcMarkers() == [
+            expectedMarkerForClass('Class2')
+        ]
 
         // Clear violation markers for the other file
-        runActionOnResources(ClearViolationsAction, file2)
+        runJobOnResources(ClearViolationsJob, file2)
         assert findCodeNarcMarkers() == []
     }
 
     private createClassWithViolation(className) {
         testProject.createGroovyTypeAndPackage(
-            'test',
-            "${className}.groovy",
-            "class ${className} { int TEST }\n"
-        )
+                'test',
+                "${className}.groovy",
+                "class ${className} { int TEST }\n"
+                )
     }
 
     private expectedMarkerForClass(className) {
@@ -78,16 +89,15 @@ class ActionTest extends EclipseTestCase {
         ]
     }
 
-    private runActionOnResources(actionClass, ...resources) {
+    private runJobOnResources(Class jobClass, IResource... resources) {
         resources.each{ assert it.exists() }
         def selection = new StructuredSelection(resources)
-        def action = actionClass.newInstance()
-        action.selectionChanged(null, selection)
-        action.run(null)
+        Job job = jobClass.newInstance(selection)
+        job.schedule()
         waitForJobAndRefresh(resources)
     }
 
-    private waitForJobAndRefresh(...resources) {
+    private waitForJobAndRefresh(IResource... resources) {
         Job.jobManager.join(CheckCodeJob, null)
         Job.jobManager.join(ClearViolationsJob, null)
         resources.each{ it.parent.refreshLocal(IResource.DEPTH_INFINITE, null) }
