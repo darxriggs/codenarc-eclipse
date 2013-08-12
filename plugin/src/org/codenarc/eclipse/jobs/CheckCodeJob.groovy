@@ -36,7 +36,7 @@ class CheckCodeJob extends Job {
         this.monitor = monitor
 
         def files = selectFiles()
-        def project = getProjectFromSelection()
+        def project = getProject(files)
         def ruleSet = createRuleSet(project)
         checkFiles(files, ruleSet)
 
@@ -51,9 +51,8 @@ class CheckCodeJob extends Job {
         files
     }
 
-    private IResource getProjectFromSelection() {
-        def firstResourceWithProject = selection.find{ IResource resource -> resource.project }
-        firstResourceWithProject?.project
+    private IResource getProject(List<IFile> files) {
+        files.findResult{ it.project }
     }
 
     private RuleSet createRuleSet(IResource project) {
