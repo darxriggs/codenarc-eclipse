@@ -9,11 +9,16 @@
 * update web-site (version, release date, changelog)
   * scripts/rsync.web-site
 * set release tag
+  * git tag -a -m 'release X.Y.Z.TIMESTAMP' vX.Y.Z
 * sync repos, update sites, web site
   * git push --all github      && git push --tags github
   * git push --all sourceforge && git push --tags sourceforge
 * announce on
   * Twitter
-  * user@groovy.codehaus.org (mailing list)
+    * template-announcement-twitter.txt
+  * user@groovy.codehaus.org
+    * template-announcement-email.txt
   * Eclipse Marketplace
-  * link @ http://groovy.dzone.com
+    * http://marketplace.eclipse.org/content/codenarc-eclipse
+  * http://groovy.dzone.com
+    * create announcement
