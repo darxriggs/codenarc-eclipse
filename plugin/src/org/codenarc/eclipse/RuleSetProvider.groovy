@@ -30,7 +30,7 @@ class RuleSetProvider {
         'jdbc',
         'junit',
         'logging',
-        //'naming' // TODO: reenable when this commit is released https://github.com/CodeNarc/CodeNarc/commit/43899f4eb7ab2f72713538603c8b23c3c7e7a9d1
+        'naming',
         'security',
         'serialization',
         'size',
