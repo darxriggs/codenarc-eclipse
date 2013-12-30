@@ -34,6 +34,11 @@ class ClearViolationsJob extends Job {
         monitor.isCanceled() ? Status.CANCEL_STATUS : Status.OK_STATUS
     }
 
+    @Override
+    boolean belongsTo(final Object family) {
+        this.class == family
+    }
+
     private List<IFile> selectFiles() {
         monitor.beginTask('Selecting files', 1)
         def files = SelectionUtils.getGroovyFiles(selection)
