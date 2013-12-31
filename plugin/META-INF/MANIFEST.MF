@@ -21,3 +21,11 @@ Bundle-ClassPath: .,
  lib/GMetrics-0.6.jar,
  lib/log4j-1.2.16.jar
 Bundle-Vendor: http://codenarceclipse.sourceforge.net/
+Export-Package: org.codenarc.eclipse;
+  uses:="org.codenarc.ruleset,
+   org.eclipse.jface.resource,
+   org.eclipse.ui.plugin,
+   org.eclipse.jface.viewers,
+   org.osgi.framework",
+ org.codenarc.eclipse.jobs;uses:="org.eclipse.core.runtime,org.eclipse.core.runtime.jobs,org.eclipse.jface.viewers",
+ org.codenarc.eclipse.popup.actions;uses:="org.eclipse.jface.action,org.eclipse.ui,org.eclipse.jface.viewers"

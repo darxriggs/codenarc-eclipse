@@ -1,4 +1,5 @@
 plugin/bin/
+tests/bin/
 update-site.release/artifacts.jar
 update-site.release/content.jar
 update-site.release/features/
