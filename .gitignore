@@ -1,5 +1,7 @@
 plugin/bin/
+plugin/target/
 tests/bin/
+tests/target/
 update-site.release/artifacts.jar
 update-site.release/content.jar
 update-site.release/features/
