@@ -4,4 +4,5 @@ env:
   - MAVEN_PROFILE=platfom-indigo
   - MAVEN_PROFILE=platfom-juno
   - MAVEN_PROFILE=platfom-kepler
-script: mvn verify -P $MAVEN_PROFILE
+install: mvn install -DskipTests=true -P $MAVEN_PROFILE -B
+script: mvn verify -P $MAVEN_PROFILE -B
