@@ -24,9 +24,6 @@
         <groovy-eclipse-batch-version>[1.7.10-02,1.7.10-99]</groovy-eclipse-batch-version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <repository.eclipse.url>http://download.eclipse.org/releases/helios</repository.eclipse.url>
-        <repository.greclipse.url>http://dist.springsource.org/release/GRECLIPSE/e3.6</repository.greclipse.url>
     </properties>
 
     <repositories>
@@ -41,6 +38,44 @@
             <url>${repository.greclipse.url}</url>
         </repository>
     </repositories>
+
+    <profiles>
+        <profile>
+            <id>platform-helios</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <repository.eclipse.url>http://download.eclipse.org/releases/helios</repository.eclipse.url>
+                <repository.greclipse.url>http://dist.springsource.org/release/GRECLIPSE/e3.6</repository.greclipse.url>
+                <platform-version>[3.6,3.7)</platform-version>
+            </properties>
+        </profile>
+        <profile>
+            <id>platform-indigo</id>
+            <properties>
+                <repository.eclipse.url>http://download.eclipse.org/releases/indigo</repository.eclipse.url>
+                <repository.greclipse.url>http://dist.springsource.org/release/GRECLIPSE/e3.7</repository.greclipse.url>
+                <platform-version>[3.7,3.8)</platform-version>
+            </properties>
+        </profile>
+        <profile>
+            <id>platform-juno</id>
+            <properties>
+                <repository.eclipse.url>http://download.eclipse.org/releases/juno</repository.eclipse.url>
+                <repository.greclipse.url>http://dist.springsource.org/release/GRECLIPSE/e4.2</repository.greclipse.url>
+                <platform-version>[3.8,4.3)</platform-version>
+            </properties>
+        </profile>
+        <profile>
+            <id>platform-kepler</id>
+            <properties>
+                <repository.eclipse.url>http://download.eclipse.org/releases/kepler</repository.eclipse.url>
+                <repository.greclipse.url>http://dist.springsource.org/release/GRECLIPSE/e4.3</repository.greclipse.url>
+                <platform-version>[4.3,4.4)</platform-version>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>

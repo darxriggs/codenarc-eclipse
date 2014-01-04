@@ -1,1 +1,7 @@
 language: groovy
+env:
+  - MAVEN_PROFILE=platfom-helios
+  - MAVEN_PROFILE=platfom-indigo
+  - MAVEN_PROFILE=platfom-juno
+  - MAVEN_PROFILE=platfom-kepler
+script: mvn verify -P $MAVEN_PROFILE
