@@ -117,6 +117,16 @@
             </plugin>
             <plugin>
                 <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-packaging-plugin</artifactId>
+                <version>${tycho-version}</version>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
                 <artifactId>target-platform-configuration</artifactId>
                 <version>${tycho-version}</version>
                 <configuration>
