@@ -1,8 +1,8 @@
 language: groovy
 env:
-  - MAVEN_PROFILE=platfom-helios
-  - MAVEN_PROFILE=platfom-indigo
-  - MAVEN_PROFILE=platfom-juno
-  - MAVEN_PROFILE=platfom-kepler
+  - MAVEN_PROFILE=platform-helios
+  - MAVEN_PROFILE=platform-indigo
+  - MAVEN_PROFILE=platform-juno
+  - MAVEN_PROFILE=platform-kepler
 install: mvn install -DskipTests=true -P $MAVEN_PROFILE -B
 script: mvn verify -P $MAVEN_PROFILE -B
