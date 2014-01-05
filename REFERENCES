@@ -1,5 +1,10 @@
 +++ building the plugin +++
 http://www.vogella.de/articles/EclipsePDEBuild/article.html
+http://www.sonatype.org/tycho
+http://www.vogella.com/articles/EclipseTycho/article.html
+http://blog.dubture.com/2011/12/developing-eclipse-plugins-using-github.html
+http://dev.eclipse.org/mhonarc/lists/tycho-user/msg05040.html
+http://groovy.codehaus.org/Groovy-Eclipse+2.7.2+New+and+Noteworthy#Groovy-Eclipse2.7.2NewandNoteworthy-BuildingEclipsepluginswritteninGroovyusingMavenTycho
 
 +++ Markers +++
 http://help.eclipse.org/help32/topic/org.eclipse.platform.doc.isv/reference/api/org/eclipse/core/resources/IMarker.html

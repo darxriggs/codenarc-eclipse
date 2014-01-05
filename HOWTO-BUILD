@@ -26,3 +26,4 @@ Always build the plugin with Groovy 1.7. Otherwise BytecodeInterface8 from Groov
   * Eclipse 3.7
     * Groovy 1.7
     * Groovy 1.8
+  * Eclipse 4.2
