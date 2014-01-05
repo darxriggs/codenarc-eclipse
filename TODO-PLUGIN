@@ -4,7 +4,6 @@
 * handle non-existing files
 * make path of workspace/project-specific ruleset files relative to the workspace/ruleset
 ** see "CodeNarc-Plugin" -> Run As -> Run Configurations... -> Eclipse Application -> Main -> Location: ${workspace_loc}/...
-* filter duplicate files
 
 
 * project builder

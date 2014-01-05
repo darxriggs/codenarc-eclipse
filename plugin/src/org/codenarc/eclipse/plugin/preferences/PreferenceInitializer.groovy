@@ -14,6 +14,6 @@ class PreferenceInitializer extends AbstractPreferenceInitializer {
         def store = Activator.default.preferenceStore
         store.setDefault(PreferenceConstants.USE_PROJECT_SETTINGS, false)
         store.setDefault(PreferenceConstants.USE_CUSTOM_RULESET, false)
-        store.setDefault(PreferenceConstants.RULESET_FILES, '')
+        store.setDefault(PreferenceConstants.RULESET_FILE, '')
     }
 }
