@@ -3,7 +3,6 @@ package org.codenarc.eclipse.plugin.preferences;
 import org.codenarc.eclipse.Activator;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditor;
-import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
@@ -15,7 +14,7 @@ public class PreferencePage extends FieldEditorOverlayPage implements IWorkbench
     public final static String PAGE_ID = "org.codenarc.eclipse.plugin.preferences.PreferencePage";
 
     private BooleanFieldEditor useCustomRulesetButton;
-    private FileFieldEditor rulesetFileField;
+    private RuleSetFileFieldEditor rulesetFileField;
 
     public PreferencePage() {
         super(GRID);
@@ -25,7 +24,7 @@ public class PreferencePage extends FieldEditorOverlayPage implements IWorkbench
     @Override
     public void createFieldEditors() {
         useCustomRulesetButton = new BooleanFieldEditor(PreferenceConstants.USE_CUSTOM_RULESET, "Use custom ruleset", getFieldEditorParent());
-        rulesetFileField = new FileFieldEditor(PreferenceConstants.RULESET_FILE, "Ruleset", getFieldEditorParent());
+        rulesetFileField = new RuleSetFileFieldEditor(useCustomRulesetButton, PreferenceConstants.RULESET_FILE, "Ruleset", getFieldEditorParent());
 
         addField(useCustomRulesetButton);
         addField(rulesetFileField);
@@ -52,12 +51,6 @@ public class PreferencePage extends FieldEditorOverlayPage implements IWorkbench
     @Override
     protected String getPageId() {
         return PAGE_ID;
-    }
-
-    @Override
-    protected void initialize() {
-        super.initialize();
-        rulesetFileField.setEnabled(useCustomRulesetButton.getBooleanValue(), getFieldEditorParent());
     }
 
     private void propertyChangeDisableButton(PropertyChangeEvent event) {

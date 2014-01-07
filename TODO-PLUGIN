@@ -1,6 +1,5 @@
 +++ TODO +++
 
-* disable file list editor if "Use custom ruleset" is disabled when opening page
 * handle non-existing files
 * make path of workspace/project-specific ruleset files relative to the workspace/ruleset
 ** see "CodeNarc-Plugin" -> Run As -> Run Configurations... -> Eclipse Application -> Main -> Location: ${workspace_loc}/...
