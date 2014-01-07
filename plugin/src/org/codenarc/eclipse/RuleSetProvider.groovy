@@ -53,7 +53,7 @@ class RuleSetProvider {
                 def ruleSet = RuleSetUtil.loadRuleSetFile(path)
                 overallRuleSet.addRuleSet(ruleSet)
             } catch (e) {
-                invalidFiles << path
+                invalidFiles << (path - 'file:')
             }
         }
         def end = System.currentTimeMillis()

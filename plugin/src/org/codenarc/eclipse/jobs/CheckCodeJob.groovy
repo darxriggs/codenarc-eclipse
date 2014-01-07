@@ -1,6 +1,7 @@
 package org.codenarc.eclipse.jobs
 
 import org.codenarc.analyzer.StringSourceAnalyzer
+import org.codenarc.eclipse.Activator
 import org.codenarc.eclipse.CodeNarcMarker
 import org.codenarc.eclipse.Logger
 import org.codenarc.eclipse.RuleSetProvider
@@ -37,7 +38,12 @@ class CheckCodeJob extends Job {
 
         def files = selectFiles()
         def project = getProjectFromSelection()
-        def ruleSet = createRuleSet(project)
+        def ruleSet
+        try {
+            ruleSet = createRuleSet(project)
+        } catch (IllegalArgumentException ex) {
+            return new Status(Status.ERROR, Activator.PLUGIN_ID, ex.message)
+        }
         checkFiles(files, ruleSet)
 
         monitor.isCanceled() ? Status.CANCEL_STATUS : Status.OK_STATUS
