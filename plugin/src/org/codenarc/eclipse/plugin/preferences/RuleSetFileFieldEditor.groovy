@@ -19,4 +19,18 @@ class RuleSetFileFieldEditor extends FileFieldEditor {
     void setEnabled(boolean enabled, Composite parent) {
         super.setEnabled(activationButton.booleanValue && enabled, parent)
     }
+
+    @Override
+    protected boolean doCheckState() {
+        if (!activationButton.booleanValue) { return true }
+
+        try {
+            def path = 'file:' + textControl.text
+            RuleSetProvider.createRuleSetFromFiles([path])
+            true
+        } catch (ex) {
+            setErrorMessage('Value must be a valid CodeNarc ruleset file')
+            false
+        }
+    }
 }
