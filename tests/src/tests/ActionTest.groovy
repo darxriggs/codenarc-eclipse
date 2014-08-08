@@ -64,7 +64,7 @@ class ActionTest extends EclipseTestCase {
         testProject.createGroovyTypeAndPackage(
             'test',
             "${className}.groovy",
-            "class ${className} { def TEST }"
+            "class ${className} { def TEST }\n"
         )
     }
 
