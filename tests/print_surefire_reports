@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+echo "Current directory is $(pwd)"
+echo "\n=== SUREFIRE REPORTS ===\n"
+for f in target/surefire-reports/*.txt; do
+    echo $f
+    cat $f
+    echo
+done

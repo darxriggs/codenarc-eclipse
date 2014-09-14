@@ -9,3 +9,4 @@ env:
   - MAVEN_PROFILE=platform-luna
 install: mvn -P $MAVEN_PROFILE -B install -DskipTests=true
 script:  mvn -P $MAVEN_PROFILE -B verify
+after_failure: print_surefire_reports
