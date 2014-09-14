@@ -18,12 +18,12 @@
    </license>
 
    <requires>
-      <import plugin="org.eclipse.ui" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.editors" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.runtime" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.resources" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.jface.text" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.jdt.core" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.editors" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.resources" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jface.text" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.core" version="3.7.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jdt.groovy.core" version="2.1.0" match="greaterOrEqual"/>
       <import plugin="org.codehaus.groovy" version="1.8.0" match="greaterOrEqual"/>
       <import plugin="org.codehaus.groovy.eclipse" version="2.1.0" match="greaterOrEqual"/>
