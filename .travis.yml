@@ -4,5 +4,5 @@ env:
   - MAVEN_PROFILE=platform-juno
   - MAVEN_PROFILE=platform-kepler
   - MAVEN_PROFILE=platform-luna
-install: mvn install -DskipTests=true -P $MAVEN_PROFILE -B
-script: mvn verify -P $MAVEN_PROFILE -B
+install: mvn -P $MAVEN_PROFILE -B install -DskipTests=true
+script:  mvn -P $MAVEN_PROFILE -B verify
