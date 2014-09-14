@@ -1,4 +1,7 @@
 language: groovy
+jdk:
+  - oraclejdk7
+  - oraclejdk8
 env:
   - MAVEN_PROFILE=platform-indigo
   - MAVEN_PROFILE=platform-juno
