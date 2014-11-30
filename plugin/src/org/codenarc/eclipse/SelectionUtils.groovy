@@ -2,6 +2,7 @@ package org.codenarc.eclipse
 
 import org.eclipse.core.resources.IContainer
 import org.eclipse.core.resources.IFile
+import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IResource
 import org.eclipse.jface.viewers.IStructuredSelection
 
@@ -9,6 +10,10 @@ class SelectionUtils {
 
     private static final GROOVY_FILE_EXTENSION = 'groovy'
     private static final GRAILS_LINKED_RESOURCES_NAME = '.link_to_grails_plugins'
+
+    static IProject getProject(IStructuredSelection selection) {
+        selection.findResult { IResource resource -> resource?.project?.project }
+    }
 
     static List<IFile> getGroovyFiles(IStructuredSelection selection) {
         def files = []
