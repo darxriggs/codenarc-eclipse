@@ -18,11 +18,11 @@ class ActionTest extends EclipseTestCase {
         def file = createClassWithViolation('Class1')
 
         // Check for violations
-        runActionOnFiles(CheckCodeAction, file)
+        runActionOnResources(CheckCodeAction, file)
         assert findCodeNarcMarkers() == [expectedMarkerForClass('Class1')]
 
         // Clear violation markers
-        runActionOnFiles(ClearViolationsAction, file)
+        runActionOnResources(ClearViolationsAction, file)
         assert findCodeNarcMarkers() == []
     }
 
@@ -31,15 +31,15 @@ class ActionTest extends EclipseTestCase {
         def file2 = createClassWithViolation('Class2')
 
         // Check for violations on both files
-        runActionOnFiles(CheckCodeAction, file1, file2)
+        runActionOnResources(CheckCodeAction, file1, file2)
         assert findCodeNarcMarkers() == [expectedMarkerForClass('Class1'), expectedMarkerForClass('Class2')]
 
         // Clear violation markers for one of the both files
-        runActionOnFiles(ClearViolationsAction, file1)
+        runActionOnResources(ClearViolationsAction, file1)
         assert findCodeNarcMarkers() == [expectedMarkerForClass('Class2')]
 
         // Clear violation markers for the other file
-        runActionOnFiles(ClearViolationsAction, file2)
+        runActionOnResources(ClearViolationsAction, file2)
         assert findCodeNarcMarkers() == []
     }
 
@@ -48,15 +48,15 @@ class ActionTest extends EclipseTestCase {
         def file2 = createClassWithViolation('Class2')
 
         // Check for violations on both files
-        runActionOnFiles(CheckCodeAction, testProject.project)
+        runActionOnResources(CheckCodeAction, testProject.project)
         assert findCodeNarcMarkers() == [expectedMarkerForClass('Class1'), expectedMarkerForClass('Class2')]
 
         // Clear violation markers for one of the both files
-        runActionOnFiles(ClearViolationsAction, file1)
+        runActionOnResources(ClearViolationsAction, file1)
         assert findCodeNarcMarkers() == [expectedMarkerForClass('Class2')]
 
         // Clear violation markers for the other file
-        runActionOnFiles(ClearViolationsAction, file2)
+        runActionOnResources(ClearViolationsAction, file2)
         assert findCodeNarcMarkers() == []
     }
 
@@ -78,19 +78,19 @@ class ActionTest extends EclipseTestCase {
         ]
     }
 
-    private runActionOnFiles(actionClass, ...files) {
-        files.each{ assert it.exists() }
-        def selection = new StructuredSelection(files as List)
+    private runActionOnResources(actionClass, ...resources) {
+        resources.each{ assert it.exists() }
+        def selection = new StructuredSelection(resources)
         def action = actionClass.newInstance()
         action.selectionChanged(null, selection)
         action.run(null)
-        waitForJobAndRefresh(files)
+        waitForJobAndRefresh(resources)
     }
 
-    private waitForJobAndRefresh(...files) {
+    private waitForJobAndRefresh(...resources) {
         Job.jobManager.join(CheckCodeJob, null)
         Job.jobManager.join(ClearViolationsJob, null)
-        files.each{ it.parent.refreshLocal(IResource.DEPTH_INFINITE, null) }
+        resources.each{ it.parent.refreshLocal(IResource.DEPTH_INFINITE, null) }
     }
 
     private findCodeNarcMarkers() {
