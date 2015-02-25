@@ -66,6 +66,7 @@ import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jdt.launching.JavaRuntime;
 
 /** ripped of the Groovy Eclipse plugin tests */
+@SuppressWarnings("restriction")
 public class TestProject {
     public static final String TEST_PROJECT_NAME = "TestProject";
 
