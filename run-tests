@@ -1,0 +1,5 @@
+#!/bin/bash -ue
+
+for platform in indigo juno kepler luna; do
+  mvn -Pplatform-$platform clean verify
+done
