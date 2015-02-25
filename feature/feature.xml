@@ -2,7 +2,7 @@
 <feature
       id="org.codenarc.eclipse.feature"
       label="%featureName"
-      version="0.21.0.qualifier"
+      version="0.23.0.qualifier"
       plugin="org.codenarc.eclipse.plugin">
 
    <description url="%descriptionUrl">
