@@ -21,8 +21,7 @@
     <properties>
         <tycho-version>0.21.0</tycho-version>
         <groovy-eclipse-compiler-version>2.9.1-01</groovy-eclipse-compiler-version>
-        <groovy-eclipse-batch-version>2.3.7-01</groovy-eclipse-batch-version>
-
+        <groovy-eclipse-batch-version>2.0.7-03</groovy-eclipse-batch-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
