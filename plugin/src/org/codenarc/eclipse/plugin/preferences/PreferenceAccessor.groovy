@@ -1,9 +1,12 @@
 package org.codenarc.eclipse.plugin.preferences
 
+import groovy.transform.CompileStatic
+
 import org.codenarc.eclipse.Activator
 import org.eclipse.core.resources.IResource
 import org.eclipse.core.runtime.QualifiedName
 
+@CompileStatic
 class PreferenceAccessor {
 
     static String getOverlayedPreferenceValue(IResource resource, String key) {

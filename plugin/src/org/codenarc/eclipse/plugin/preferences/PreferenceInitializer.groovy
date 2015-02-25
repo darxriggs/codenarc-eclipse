@@ -1,5 +1,7 @@
 package org.codenarc.eclipse.plugin.preferences
 
+import groovy.transform.CompileStatic
+
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer
 
 import org.codenarc.eclipse.Activator
@@ -7,6 +9,7 @@ import org.codenarc.eclipse.Activator
 /**
  * Class used to initialize default preference values.
  */
+@CompileStatic
 class PreferenceInitializer extends AbstractPreferenceInitializer {
 
     @Override

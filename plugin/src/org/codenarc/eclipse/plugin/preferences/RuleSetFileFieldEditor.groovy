@@ -1,11 +1,13 @@
 package org.codenarc.eclipse.plugin.preferences
 
-import org.codenarc.eclipse.Logger
+import groovy.transform.CompileStatic
+
 import org.codenarc.eclipse.RuleSetProvider
 import org.eclipse.jface.preference.BooleanFieldEditor
 import org.eclipse.jface.preference.FileFieldEditor
 import org.eclipse.swt.widgets.Composite
 
+@CompileStatic
 class RuleSetFileFieldEditor extends FileFieldEditor {
 
     BooleanFieldEditor activationButton

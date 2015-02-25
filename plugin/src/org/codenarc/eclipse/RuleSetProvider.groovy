@@ -1,5 +1,7 @@
 package org.codenarc.eclipse
 
+import groovy.transform.CompileStatic
+
 import org.codenarc.ruleregistry.RuleRegistryInitializer
 import org.codenarc.ruleset.CompositeRuleSet
 import org.codenarc.ruleset.RuleSet
@@ -8,9 +10,10 @@ import org.codenarc.ruleset.RuleSetUtil
 /**
  * Provides all rulesets that are shipped with CodeNarc as a composite ruleset.
  */
+@CompileStatic
 class RuleSetProvider {
 
-    private static final Logger log = Logger.instance
+    private static final Logger log = new Logger()
 
     private static final DEFAULT_RULESETS = [
         'basic',
@@ -36,12 +39,12 @@ class RuleSetProvider {
         'unused']
 
     static RuleSet createDefaultRuleSet() {
-        def paths = DEFAULT_RULESETS.collect{ ruleSet -> "rulesets/${ruleSet}.xml" }
+        def paths = (Collection<String>) DEFAULT_RULESETS.collect{ ruleSet -> "rulesets/${ruleSet}.xml" }
 
         createRuleSetFromFiles(paths)
     }
 
-    static RuleSet createRuleSetFromFiles(List paths) {
+    static RuleSet createRuleSetFromFiles(Collection<String> paths) {
         new RuleRegistryInitializer().initializeRuleRegistry()
 
         def invalidFiles = []

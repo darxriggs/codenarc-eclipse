@@ -1,5 +1,7 @@
 package org.codenarc.eclipse.jobs
 
+import groovy.transform.CompileStatic
+
 import org.codenarc.eclipse.CodeNarcMarker
 import org.codenarc.eclipse.Logger
 import org.codenarc.eclipse.SelectionUtils
@@ -12,9 +14,10 @@ import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.viewers.IStructuredSelection
 
+@CompileStatic
 class ClearViolationsJob extends Job {
 
-    private static final Logger log = Logger.instance
+    private static final Logger log = new Logger()
 
     private IProgressMonitor monitor
     private IStructuredSelection selection

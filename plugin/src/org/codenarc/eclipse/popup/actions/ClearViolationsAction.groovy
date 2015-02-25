@@ -1,5 +1,7 @@
 package org.codenarc.eclipse.popup.actions
 
+import groovy.transform.CompileStatic
+
 import org.codenarc.eclipse.jobs.ClearViolationsJob
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.action.IAction
@@ -8,6 +10,7 @@ import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.ui.IObjectActionDelegate
 import org.eclipse.ui.IWorkbenchPart
 
+@CompileStatic
 class ClearViolationsAction implements IObjectActionDelegate {
 
     private IStructuredSelection selection
@@ -22,7 +25,7 @@ class ClearViolationsAction implements IObjectActionDelegate {
     @Override
     void selectionChanged(IAction action, ISelection selection) {
         if (selection instanceof IStructuredSelection)  {
-            this.selection = selection
+            this.selection = (IStructuredSelection) selection
         }
     }
 

@@ -1,5 +1,7 @@
 package org.codenarc.eclipse
 
+import groovy.transform.CompileStatic
+
 import org.eclipse.jface.resource.ImageDescriptor
 import org.eclipse.ui.plugin.AbstractUIPlugin
 import org.osgi.framework.BundleContext
@@ -7,6 +9,7 @@ import org.osgi.framework.BundleContext
 /**
  * Controls the plug-in life cycle.
  */
+@CompileStatic
 class Activator extends AbstractUIPlugin {
 
     // The plug-in ID

@@ -1,5 +1,7 @@
 package org.codenarc.eclipse.jobs
 
+import groovy.transform.CompileStatic
+
 import org.codenarc.analyzer.StringSourceAnalyzer
 import org.codenarc.eclipse.Activator
 import org.codenarc.eclipse.CodeNarcMarker
@@ -10,6 +12,7 @@ import org.codenarc.eclipse.plugin.preferences.PreferenceAccessor
 import org.codenarc.eclipse.plugin.preferences.PreferenceConstants
 import org.codenarc.results.Results
 import org.codenarc.results.VirtualResults
+import org.codenarc.rule.Violation
 import org.codenarc.ruleset.RuleSet
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IMarker
@@ -21,9 +24,10 @@ import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.viewers.IStructuredSelection
 
+@CompileStatic
 class CheckCodeJob extends Job {
 
-    private static final Logger log = Logger.instance
+    private static final Logger log = new Logger()
 
     private IProgressMonitor monitor
     private IStructuredSelection selection
@@ -42,7 +46,7 @@ class CheckCodeJob extends Job {
         try {
             ruleSet = createRuleSet(project)
         } catch (IllegalArgumentException ex) {
-            return new Status(Status.ERROR, Activator.PLUGIN_ID, ex.message)
+            return new Status(IStatus.ERROR, Activator.PLUGIN_ID, ex.message)
         }
         checkFiles(files, ruleSet)
 
@@ -135,7 +139,7 @@ class CheckCodeJob extends Job {
     }
 
     private void createViolationMarkers(Results results, IFile file) {
-        for (violation in results.violations) {
+        for (violation in (List<Violation>) results.violations) {
             def rule = violation.rule
 
             def markerType = CodeNarcMarker.getMarkerTypeForPriority(rule.priority)
