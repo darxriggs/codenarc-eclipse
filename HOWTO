@@ -1,6 +1,6 @@
 === Howto Build ===
 
-* in Eclipse 3.7 with Groovy 1.8
+* in Eclipse 3.7 with Groovy 2.0.7
 * use CodeNarc-Update-Site (Release or Snapshot) project
 * open site.xml with "Site Manifest" editor
 * select "org.codenarc.eclipse"
