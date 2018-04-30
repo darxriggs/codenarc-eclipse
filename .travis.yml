@@ -1,4 +1,6 @@
 language: groovy
+jdk:
+  - oraclejdk7
 env:
   - MAVEN_PROFILE=platform-helios
   - MAVEN_PROFILE=platform-indigo
