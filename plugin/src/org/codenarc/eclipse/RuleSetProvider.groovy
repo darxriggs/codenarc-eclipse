@@ -1,11 +1,14 @@
 package org.codenarc.eclipse
 
+import org.codenarc.eclipse.preferences.CodeNarcPreferenceConstants
 import org.codenarc.ruleset.CompositeRuleSet
 import org.codenarc.ruleset.RuleSet
 import org.codenarc.ruleset.RuleSetUtil
+import org.codenarc.ruleset.XmlReaderRuleSet
 import org.eclipse.core.runtime.ILog
 import org.eclipse.core.runtime.IStatus
 import org.eclipse.core.runtime.Status
+import org.eclipse.jface.preference.IPreferenceStore
 
 /**
  * Provides all rulesets that are shipped with CodeNarc as a composite ruleset.
@@ -41,6 +44,31 @@ class RuleSetProvider {
         def paths = DEFAULT_RULESETS.collect{ ruleSet -> "rulesets/${ruleSet}.xml" }
 
         createRuleSetFromFiles(paths)
+    }
+
+    static File retrieveRuleSetFileFromPreferences() {
+        IPreferenceStore store = Activator.getDefault().getPreferenceStore()
+        if (!store.getBoolean(CodeNarcPreferenceConstants.P_USE_CUSTOM_CONFIG)) {
+            return null
+        }
+        String path = store.getString(CodeNarcPreferenceConstants.P_CONFIG_PATH)
+        if (!path || !new File(path).exists()) {
+            return null
+        }
+        new File(path)
+    }
+
+    static RuleSet createRuleSet() {
+        File configFile = retrieveRuleSetFileFromPreferences()
+        if (!configFile) {
+            return createDefaultRuleSet()
+        }
+
+        CompositeRuleSet overallRuleSet = new CompositeRuleSet()
+        new XmlReaderRuleSet(new FileReader(configFile)).rules.each { rule ->
+            overallRuleSet.addRule(rule)
+        }
+        overallRuleSet
     }
 
     static RuleSet createRuleSetFromFiles(List paths) {
